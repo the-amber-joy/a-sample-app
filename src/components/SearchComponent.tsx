@@ -9,13 +9,14 @@ import {
 import { useState } from "react";
 import getPokemon from "../api/getPokemon";
 import { useSelectionContext } from "../context/SelectionContext";
+import { kebabCase } from "lodash";
 
 export const SearchComponent = () => {
   const { updateSelection } = useSelectionContext();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [isInvalid, setIsInvalid] = useState<boolean>(false);
   const handleSubmit = () => {
-    getPokemon(searchTerm.toLowerCase()).then((res) => {
+    getPokemon(kebabCase(searchTerm.toLowerCase())).then((res) => {
       if (res.status === 404) {
         setIsInvalid(true);
       }
