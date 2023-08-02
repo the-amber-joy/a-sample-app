@@ -9,7 +9,7 @@ export const Layout = () => (
     <ColorModeSwitcher />
     <SimpleGrid
       minChildWidth="md"
-      spacing="4px"
+      spacing={1}
       w={"100vw"}
       alignItems={"center"}
     >
