@@ -15,7 +15,7 @@ export const SearchComponent = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [isInvalid, setIsInvalid] = useState<boolean>(false);
   const handleSubmit = () => {
-    getPokemon(searchTerm).then((res) => {
+    getPokemon(searchTerm.toLowerCase()).then((res) => {
       if (res.status === 404) {
         setIsInvalid(true);
       }

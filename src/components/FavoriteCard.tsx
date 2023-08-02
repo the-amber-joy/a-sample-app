@@ -33,10 +33,11 @@ export const FavoriteCard = ({ name, id, spriteIcon }: Pokemon) => {
   return (
     <Button
       minH="75px"
-      w="auto"
+      minW="xs"
       onClick={() => {
         getThisPokemon();
       }}
+      overflow="hidden"
     >
       <Image src={spriteIcon} marginLeft="-6" marginRight="0" />
       {startCase(name)} # {padStart(id.toString(), 4, "0")}
