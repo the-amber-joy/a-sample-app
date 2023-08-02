@@ -7,20 +7,20 @@ export const Favorites = () => {
   const { favorites } = useFavoritesContext();
 
   return (
-    <VStack w="sm">
+    <VStack w={{ base: "sm", md: "auto" }}>
       <Heading>Favorites</Heading>
-        <Stack spacing={1} h="lg" w="auto" alignContent="center">
-          {map(favorites, (favorite) => {
-            return (
-              <FavoriteCard
-                name={favorite.name}
-                id={favorite.id}
-                spriteIcon={favorite.spriteIcon}
-                key={favorite.id}
-              />
-            );
-          })}
-        </Stack>
+      <Stack spacing={1} h="lg" w="auto" alignContent="center">
+        {map(favorites, (favorite) => {
+          return (
+            <FavoriteCard
+              name={favorite.name}
+              id={favorite.id}
+              spriteIcon={favorite.spriteIcon}
+              key={favorite.id}
+            />
+          );
+        })}
+      </Stack>
     </VStack>
   );
 };

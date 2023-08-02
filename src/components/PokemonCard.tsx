@@ -54,7 +54,7 @@ export const PokemonCard = () => {
   }, [selection]);
 
   return (
-    <Card w="sm" h="xl">
+    <Card w={{ base: "sm", md: "auto" }} h="xl">
       <CardHeader>
         <Heading size="md">
           {isLoading

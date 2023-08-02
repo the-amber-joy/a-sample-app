@@ -6,8 +6,13 @@ import { SearchComponent } from "./SearchComponent";
 
 export const Layout = () => (
   <Box textAlign="center" fontSize="xl">
-    <ColorModeSwitcher justifySelf="flex-end" />
-    <SimpleGrid minChildWidth="md" spacing="4px">
+    <ColorModeSwitcher />
+    <SimpleGrid
+      minChildWidth="md"
+      spacing="4px"
+      w={"100vw"}
+      alignItems={"center"}
+    >
       <SearchComponent />
       <PokemonCard />
       <Favorites />

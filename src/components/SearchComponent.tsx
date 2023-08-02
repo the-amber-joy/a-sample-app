@@ -34,7 +34,7 @@ export const SearchComponent = () => {
       }}
     >
       <FormControl isInvalid={isInvalid}>
-        <HStack w="sm">
+        <HStack w={{ base: "sm", md: "auto" }}>
           <Input
             placeholder={"Search by name"}
             onChange={(e) => {
