@@ -6,10 +6,10 @@ import {
   IconButton,
   Input,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import getPokemon from "../api/getPokemon";
-import { useSelectionContext } from "../context/SelectionContext";
 import { kebabCase } from "lodash";
+import { useState } from "react";
+import getPokemon from "../../api/getPokemon";
+import { useSelectionContext } from "../../context/SelectionContext";
 
 export const SearchComponent = () => {
   const { updateSelection } = useSelectionContext();

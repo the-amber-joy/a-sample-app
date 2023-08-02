@@ -1,9 +1,9 @@
 import { Button, Image } from "@chakra-ui/react";
 
-import { Pokemon } from "../types/Pokemon";
-import { padStart, startCase } from "lodash";
 import axios from "axios";
-import { useSelectionContext } from "../context/SelectionContext";
+import { padStart, startCase } from "lodash";
+import { useSelectionContext } from "../../context/SelectionContext";
+import { Pokemon } from "../../types/Pokemon";
 
 export const FavoriteCard = ({ name, id, spriteIcon }: Pokemon) => {
   const { updateSelection } = useSelectionContext();

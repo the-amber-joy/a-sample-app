@@ -17,9 +17,9 @@ import {
 } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
-import getFlavorTextById from "../api/getFlavorTextById";
-import getPokemon from "../api/getPokemon";
-import { useSelectionContext } from "../context/SelectionContext";
+import getFlavorTextById from "../../api/getFlavorTextById";
+import getPokemon from "../../api/getPokemon";
+import { useSelectionContext } from "../../context/SelectionContext";
 import { StarBtn } from "./StarBtn";
 
 export const PokemonCard = () => {
