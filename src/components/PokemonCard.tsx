@@ -7,6 +7,7 @@ import {
   Card,
   CardBody,
   CardFooter,
+  CardHeader,
   Center,
   Divider,
   Heading,
@@ -78,6 +79,9 @@ export const PokemonCard = () => {
 
   return (
     <Card>
+      <CardHeader>
+        <Heading size="md">This is a random Pokemon</Heading>
+      </CardHeader>
       <CardBody>
         <Center>
           <Image
