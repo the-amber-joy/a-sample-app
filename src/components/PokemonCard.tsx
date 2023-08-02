@@ -30,15 +30,25 @@ export const PokemonCard = () => {
 
   useEffect(() => {
     getPokemon().then((res) => {
-      if (res) updateSelection(res);
+      if (res.status === 404) {
+        console.log(res);
+      }
+      if (res.status === 200) {
+        updateSelection(res.pokemon);
+      }
     });
   }, []);
 
   useEffect(() => {
-    if (selection) {
+    if (selection !== null) {
       getFlavorTextById(selection.id).then((res) => {
-        setPokemonDetails(res);
-        setIsLoading(false);
+        if (res.status === 404) {
+          console.log(res);
+        }
+        if (res.status === 200) {
+          setPokemonDetails(res.text);
+          setIsLoading(false);
+        }
       });
     }
   }, [selection]);
@@ -76,7 +86,8 @@ export const PokemonCard = () => {
           <Stack mt="6" spacing="3">
             <>
               <Heading size="md">
-                {startCase(selection?.name)} # {padStart(selection?.id.toString(), 4, "0")}
+                {startCase(selection?.name)} #{" "}
+                {padStart(selection?.id.toString(), 4, "0")}
               </Heading>
 
               <Text>{pokemonDetails}</Text>
@@ -93,7 +104,7 @@ export const PokemonCard = () => {
             onClick={() => {
               setIsLoading(true);
               getPokemon().then((res) => {
-                if (res) updateSelection(res);
+                if (res) updateSelection(res.pokemon);
               });
               setIsShiny(false);
             }}

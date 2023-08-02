@@ -2,11 +2,11 @@ import { createContext, useContext, useState } from "react";
 import { Pokemon } from "../types/Pokemon";
 
 interface SelectionContextType {
-  selection: Pokemon | undefined;
+  selection: Pokemon | null;
   updateSelection: (newSelection: Pokemon) => void;
 }
 
-export const SelectionContext = createContext<SelectionContextType | undefined>(undefined);
+export const SelectionContext = createContext<SelectionContextType | null>(null);
 
 export const useSelectionContext = () => {
   const context = useContext(SelectionContext);
@@ -23,7 +23,7 @@ export const SelectionContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [state, setState] = useState<Pokemon | undefined>(undefined);
+  const [state, setState] = useState<Pokemon | null>(null);
 
   const updateSelection = (newState: Pokemon) => {
     setState(newState);
