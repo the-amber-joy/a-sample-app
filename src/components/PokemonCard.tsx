@@ -54,7 +54,7 @@ export const PokemonCard = () => {
   }, [selection]);
 
   return (
-    <Card w="md" h="xl">
+    <Card w="sm" h="xl">
       <CardHeader>
         <Heading size="md">
           {isLoading
