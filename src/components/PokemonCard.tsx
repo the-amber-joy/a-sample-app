@@ -18,9 +18,10 @@ import {
 import { useEffect, useState } from "react";
 import { Pokemon } from "../types/Pokemon";
 import { FaveBtn } from "./FaveBtn";
+import { useSelectionContext } from "../context/SelectionContext";
 
 export const PokemonCard = () => {
-  const [randomPokemon, setRandomPokemon] = useState<Pokemon>();
+  const { selection, updateSelection } = useSelectionContext();
   const [pokemonDetails, setPokemonDetails] = useState<string>("");
   const [isShiny, setIsShiny] = useState<boolean>(false);
   async function getRandomPokemon() {
@@ -34,8 +35,9 @@ export const PokemonCard = () => {
             name: data.name,
             defaultSprite: data.sprites.other["official-artwork"].front_default,
             shinySprite: data.sprites.other["official-artwork"].front_shiny,
+            spriteIcon: data.sprites.front_default
           };
-          setRandomPokemon(pokemon);
+          updateSelection(pokemon);
         });
 
       return data;
@@ -49,10 +51,10 @@ export const PokemonCard = () => {
   }, []);
 
   useEffect(() => {
-    if (randomPokemon) {
+    if (selection) {
       try {
         axios
-          .get(`https://pokeapi.co/api/v2/pokemon-species/${randomPokemon.id}`)
+          .get(`https://pokeapi.co/api/v2/pokemon-species/${selection.id}`)
           .then((response) => {
             function checkLanguage(obj: { language: { name: string } }) {
               return obj.language.name === "en";
@@ -72,7 +74,7 @@ export const PokemonCard = () => {
         console.log("error: ", err);
       }
     }
-  }, [randomPokemon]);
+  }, [selection]);
 
   return (
     <Card>
@@ -81,19 +83,15 @@ export const PokemonCard = () => {
           <Image
             maxH={"200px"}
             maxW={"200px"}
-            src={
-              isShiny
-                ? randomPokemon?.shinySprite
-                : randomPokemon?.defaultSprite
-            }
-            alt={randomPokemon?.name}
+            src={isShiny ? selection?.shinySprite : selection?.defaultSprite}
+            alt={selection?.name}
             borderRadius="sm"
           />
         </Center>
         <Stack mt="6" spacing="3">
           <Heading size="md">
-            {startCase(randomPokemon?.name)} #{" "}
-            {padStart(randomPokemon?.id.toString(), 4, "0")}
+            {startCase(selection?.name)} #{" "}
+            {padStart(selection?.id.toString(), 4, "0")}
           </Heading>
           <Text>{pokemonDetails}</Text>
         </Stack>
@@ -121,7 +119,7 @@ export const PokemonCard = () => {
             {isShiny ? "Make it Default" : "Make it Shiny!"}
           </Button>
         </ButtonGroup>
-        {randomPokemon && <FaveBtn selectedPokemon={randomPokemon} />}
+        {selection && <FaveBtn />}
       </CardFooter>
     </Card>
   );

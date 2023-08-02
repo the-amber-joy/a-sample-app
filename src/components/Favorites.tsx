@@ -14,6 +14,7 @@ export const Favorites = () => {
           <FavoriteCard
             name={favorite.name}
             id={favorite.id}
+            spriteIcon={favorite.spriteIcon}
             key={favorite.id}
           />
         );

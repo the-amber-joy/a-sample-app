@@ -3,5 +3,5 @@ export interface Pokemon {
   name: string;
   defaultSprite?: string; // url for the png
   shinySprite?: string; // url for the png
-  isFavorite?: boolean
+  spriteIcon?: string; // url for the png
 }
