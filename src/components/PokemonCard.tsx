@@ -12,6 +12,7 @@ import {
   Divider,
   Heading,
   Image,
+  Spinner,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -25,6 +26,7 @@ export const PokemonCard = () => {
   const { selection, updateSelection } = useSelectionContext();
   const [pokemonDetails, setPokemonDetails] = useState<string>("");
   const [isShiny, setIsShiny] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   async function getRandomPokemon() {
     try {
       const data = axios
@@ -36,7 +38,7 @@ export const PokemonCard = () => {
             name: data.name,
             defaultSprite: data.sprites.other["official-artwork"].front_default,
             shinySprite: data.sprites.other["official-artwork"].front_shiny,
-            spriteIcon: data.sprites.front_default
+            spriteIcon: data.sprites.front_default,
           };
           updateSelection(pokemon);
         });
@@ -70,6 +72,7 @@ export const PokemonCard = () => {
               .replace(/\f/g, " ");
 
             setPokemonDetails(sanitizedText);
+            setIsLoading(false);
           });
       } catch (err) {
         console.log("error: ", err);
@@ -78,28 +81,41 @@ export const PokemonCard = () => {
   }, [selection]);
 
   return (
-    <Card>
+    <Card minH={"80vh"}>
       <CardHeader>
-        <Heading size="md">This is a random Pokemon</Heading>
+        <Heading size="md">{isLoading ? "Loading " : "This is a random "}Pokemon</Heading>
       </CardHeader>
-      <CardBody>
-        <Center>
-          <Image
-            maxH={"200px"}
-            maxW={"200px"}
-            src={isShiny ? selection?.shinySprite : selection?.defaultSprite}
-            alt={selection?.name}
-            borderRadius="sm"
-          />
+      {isLoading && (
+                <CardBody h="90vh">
+
+        <Center >
+          <Spinner size="xl" />
         </Center>
-        <Stack mt="6" spacing="3">
-          <Heading size="md">
-            {startCase(selection?.name)} #{" "}
-            {padStart(selection?.id.toString(), 4, "0")}
-          </Heading>
-          <Text>{pokemonDetails}</Text>
-        </Stack>
-      </CardBody>
+        </CardBody>
+      )}
+      {!isLoading && (
+        <CardBody h="90vh">
+          <Center>
+            <Image
+              maxH={"200px"}
+              maxW={"200px"}
+              src={isShiny ? selection?.shinySprite : selection?.defaultSprite}
+              alt={selection?.name}
+              borderRadius="sm"
+            />
+          </Center>
+          <Stack mt="6" spacing="3">
+            <>
+              <Heading size="md">
+                {startCase(selection?.name)} #{" "}
+                {padStart(selection?.id.toString(), 4, "0")}
+              </Heading>
+
+              <Text>{pokemonDetails}</Text>
+            </>
+          </Stack>
+        </CardBody>
+      )}
       <Divider />
       <CardFooter justify="space-between">
         <ButtonGroup spacing="1">
@@ -107,6 +123,8 @@ export const PokemonCard = () => {
             variant="solid"
             colorScheme="green"
             onClick={() => {
+              setPokemonDetails("");
+              setIsLoading(true);
               getRandomPokemon();
               setIsShiny(false);
             }}
