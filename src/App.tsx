@@ -4,6 +4,7 @@ import { Favorites } from "./components/Favorites";
 import { PokemonCard } from "./components/PokemonCard";
 import { FavoritesContextProvider } from "./context/FavoritesContext";
 import { SelectionContextProvider } from "./context/SelectionContext";
+import { SearchComponent } from "./components/SearchComponent";
 
 export const App = () => {
   return (
@@ -13,12 +14,15 @@ export const App = () => {
           <Box textAlign="center" fontSize="xl">
             <Grid minH="100vh" p={10}>
               <ColorModeSwitcher justifySelf="flex-end" />
-              <Grid templateColumns="repeat(3, 1fr)" gap={6}>
+              <Grid templateColumns="repeat(5, 1fr)" gap={6}>
+                <GridItem colSpan={2}>
+                  <SearchComponent />
+                </GridItem>
                 <GridItem colSpan={1}>
-                  <Favorites />
+                  <PokemonCard />
                 </GridItem>
                 <GridItem colSpan={2}>
-                  <PokemonCard />
+                  <Favorites />
                 </GridItem>
               </Grid>
             </Grid>

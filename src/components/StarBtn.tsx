@@ -1,11 +1,11 @@
-import { Button } from "@chakra-ui/react";
-import { useFavoritesContext } from "../context/FavoritesContext";
-import { isFavorite } from "../util";
 import { StarIcon } from "@chakra-ui/icons";
+import { Button } from "@chakra-ui/react";
 import { filter } from "lodash";
+import { useFavoritesContext } from "../context/FavoritesContext";
 import { useSelectionContext } from "../context/SelectionContext";
+import { isFavorite } from "../util";
 
-export const FaveBtn = () => {
+export const StarBtn = () => {
   const { selection } = useSelectionContext();
 
   const { favorites, updateFavorites } = useFavoritesContext();
