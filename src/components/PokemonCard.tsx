@@ -1,21 +1,23 @@
 import axios from "axios";
-import { random, sample, startCase } from "lodash";
+import { padStart, random, sample, startCase } from "lodash";
 
 import {
   Button,
   ButtonGroup,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
+  Center,
   Divider,
   Heading,
   Image,
   Stack,
   Text,
 } from "@chakra-ui/react";
-import Pokemon from "../types/Pokemon";
+
 import { useEffect, useState } from "react";
+import { Pokemon } from "../types/Pokemon";
+import { FaveBtn } from "./FaveBtn";
 
 export const PokemonCard = () => {
   const [randomPokemon, setRandomPokemon] = useState<Pokemon>();
@@ -42,7 +44,11 @@ export const PokemonCard = () => {
     }
   }
 
-  async function getPokemonDetails() {
+  useEffect(() => {
+    getRandomPokemon();
+  }, []);
+
+  useEffect(() => {
     if (randomPokemon) {
       try {
         axios
@@ -55,6 +61,7 @@ export const PokemonCard = () => {
             const entries =
               response.data["flavor_text_entries"].filter(checkLanguage);
 
+            // get a random flavor_text & sanitize it for display
             const sanitizedText = sample(entries)
               .flavor_text.replace(/\r\n/g, "")
               .replace(/\f/g, " ");
@@ -65,46 +72,38 @@ export const PokemonCard = () => {
         console.log("error: ", err);
       }
     }
-  }
-
-  useEffect(() => {
-    getRandomPokemon();
-  }, []);
-
-  useEffect(() => {
-    getPokemonDetails();
   }, [randomPokemon]);
 
   return (
-    <Card maxW="sm">
-      <CardHeader>
-        <Heading size="md">This is a random Pokemon</Heading>
-      </CardHeader>
-      {
-        <CardBody>
+    <Card>
+      <CardBody>
+        <Center>
           <Image
+            maxH={"200px"}
+            maxW={"200px"}
             src={
               isShiny
                 ? randomPokemon?.shinySprite
                 : randomPokemon?.defaultSprite
             }
             alt={randomPokemon?.name}
-            borderRadius="lg"
+            borderRadius="sm"
           />
-          <Stack mt="6" spacing="3">
-            <Heading size="md">
-              {startCase(randomPokemon?.name)} # {randomPokemon?.id}
-            </Heading>
-            <Text>{pokemonDetails}</Text>
-          </Stack>
-        </CardBody>
-      }
+        </Center>
+        <Stack mt="6" spacing="3">
+          <Heading size="md">
+            {startCase(randomPokemon?.name)} #{" "}
+            {padStart(randomPokemon?.id.toString(), 4, "0")}
+          </Heading>
+          <Text>{pokemonDetails}</Text>
+        </Stack>
+      </CardBody>
       <Divider />
-      <CardFooter>
-        <ButtonGroup spacing="2">
+      <CardFooter justify="space-between">
+        <ButtonGroup spacing="1">
           <Button
             variant="solid"
-            colorScheme="blue"
+            colorScheme="green"
             onClick={() => {
               getRandomPokemon();
               setIsShiny(false);
@@ -113,8 +112,8 @@ export const PokemonCard = () => {
             Pick Another!
           </Button>
           <Button
-            variant="ghost"
-            colorScheme="blue"
+            variant="outline"
+            colorScheme="green"
             onClick={() => {
               setIsShiny(!isShiny);
             }}
@@ -122,6 +121,7 @@ export const PokemonCard = () => {
             {isShiny ? "Make it Default" : "Make it Shiny!"}
           </Button>
         </ButtonGroup>
+        {randomPokemon && <FaveBtn selectedPokemon={randomPokemon} />}
       </CardFooter>
     </Card>
   );
