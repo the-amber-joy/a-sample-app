@@ -36,7 +36,7 @@ export const SearchComponent = () => {
       <FormControl isInvalid={isInvalid}>
         <HStack w={{ base: "sm", sm: "auto" }}>
           <Input
-            placeholder={"Search by name"}
+            placeholder="Search by name"
             onChange={(e) => {
               setIsInvalid(false);
               setSearchTerm(e.currentTarget.value);

@@ -76,8 +76,8 @@ export const PokemonCard = () => {
         <CardBody>
           <Center>
             <Image
-              maxH={"200px"}
-              maxW={"200px"}
+              maxH="200px"
+              maxW="200px"
               src={isShiny ? selection?.shinySprite : selection?.defaultSprite}
               alt={selection?.name}
               borderRadius="sm"

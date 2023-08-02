@@ -10,8 +10,8 @@ export const Layout = () => (
     <SimpleGrid
       minChildWidth="md"
       spacing={1}
-      w={"100vw"}
-      alignItems={"center"}
+      w="100vw"
+      alignItems="center"
     >
       <SearchComponent />
       <PokemonCard />
