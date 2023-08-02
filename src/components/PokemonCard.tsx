@@ -26,7 +26,7 @@ export const PokemonCard = () => {
   const { selection, updateSelection } = useSelectionContext();
   const [pokemonDetails, setPokemonDetails] = useState<string>("");
   const [isShiny, setIsShiny] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     getPokemon().then((res) => {
@@ -83,16 +83,15 @@ export const PokemonCard = () => {
               borderRadius="sm"
             />
           </Center>
-          <Stack mt="6" spacing="3">
-            <>
+          {selection && (
+            <Stack mt="6" spacing="3">
               <Heading size="md">
-                {startCase(selection?.name)} #{" "}
-                {padStart(selection?.id.toString(), 4, "0")}
+                {startCase(selection.name)} #{" "}
+                {padStart(selection.id.toString(), 4, "0")}
               </Heading>
-
               <Text>{pokemonDetails}</Text>
-            </>
-          </Stack>
+            </Stack>
+          )}
         </CardBody>
       )}
       <Divider />
