@@ -35,23 +35,18 @@ export const PokemonCard = () => {
       }
       if (res.status === 200) {
         updateSelection(res.pokemon);
+        getFlavorTextById(res.pokemon.id).then((res) => {
+          if (res.status === 404) {
+            console.log(res);
+          }
+          if (res.status === 200) {
+            setPokemonDetails(res.text);
+            setIsLoading(false);
+          }
+        });
       }
     });
   }, []);
-
-  useEffect(() => {
-    if (selection !== null) {
-      getFlavorTextById(selection.id).then((res) => {
-        if (res.status === 404) {
-          console.log(res);
-        }
-        if (res.status === 200) {
-          setPokemonDetails(res.text);
-          setIsLoading(false);
-        }
-      });
-    }
-  }, [selection]);
 
   return (
     <Card w={{ base: "sm", sm: "auto" }} h="xl">
@@ -103,7 +98,18 @@ export const PokemonCard = () => {
             onClick={() => {
               setIsLoading(true);
               getPokemon().then((res) => {
-                if (res) updateSelection(res.pokemon);
+                if (res) {
+                  updateSelection(res.pokemon);
+                  getFlavorTextById(res.pokemon.id).then((res) => {
+                    if (res.status === 404) {
+                      console.log(res);
+                    }
+                    if (res.status === 200) {
+                      setPokemonDetails(res.text);
+                      setIsLoading(false);
+                    }
+                  });
+                }
               });
               setIsShiny(false);
             }}
