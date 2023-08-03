@@ -26,7 +26,8 @@ export const PokemonCard = () => {
   const { selection, updateSelection } = useSelectionContext();
   const [isShiny, setIsShiny] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [headingText, setHeadingText] = useState("Loading Pokemon");
+  const [headingText, setHeadingText] = useState<string>("Loading Pokemon");
+  const [flavorText, setFlavorText] = useState<string>("");
 
   useEffect(() => {
     getPokemon().then((res) => {
@@ -71,13 +72,15 @@ export const PokemonCard = () => {
   };
 
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && selection) {
       if (selection?.isRandom) {
         setHeadingText("This is a random Pokemon");
       }
-      if (selection && !selection?.isRandom) {
+      if (!selection?.isRandom) {
         setHeadingText("This is your Pokemon");
       }
+      const flavorText = sample(selection.descriptions) || "";
+      setFlavorText(flavorText);
     }
   }, [isLoading, selection]);
 
@@ -110,7 +113,7 @@ export const PokemonCard = () => {
                 {startCase(selection.name)} #{" "}
                 {padStart(selection.id.toString(), 4, "0")}
               </Heading>
-              <Text>{sample(selection.descriptions)}</Text>
+              <Text>{flavorText}</Text>
             </Stack>
           )}
         </CardBody>

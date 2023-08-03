@@ -95,8 +95,7 @@ exports[`renders correctly 1`] = `
             <h2
               className="chakra-heading css-18j379d"
             >
-              Loading 
-              Pokemon
+              Loading Pokemon
             </h2>
           </div>
           <div
