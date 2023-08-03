@@ -26,6 +26,7 @@ export const PokemonCard = () => {
   const { selection, updateSelection } = useSelectionContext();
   const [isShiny, setIsShiny] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [headingText, setHeadingText] = useState("Loading Pokemon");
 
   useEffect(() => {
     getPokemon().then((res) => {
@@ -69,17 +70,21 @@ export const PokemonCard = () => {
     });
   };
 
+  useEffect(() => {
+    if (!isLoading) {
+      if (selection?.isRandom) {
+        setHeadingText("This is a random Pokemon");
+      }
+      if (selection && !selection?.isRandom) {
+        setHeadingText("This is your Pokemon");
+      }
+    }
+  }, [isLoading, selection]);
+
   return (
     <Card w={{ base: "auto", lg: "md" }} minHeight="xl">
       <CardHeader>
-        <Heading size="md">
-          {isLoading
-            ? "Loading "
-            : selection?.isRandom
-            ? "This is a random "
-            : "This is your "}
-          Pokemon
-        </Heading>
+        <Heading size="md">{headingText}</Heading>
       </CardHeader>
       {isLoading && (
         <CardBody>
