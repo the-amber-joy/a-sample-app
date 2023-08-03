@@ -6,6 +6,15 @@ interface FavoritesContextType {
   updateFavorites: (newList: Pokemon[]) => void;
 }
 
+function getFavorites() {
+  if (localStorage.getItem("favorites")) {
+    const storedFavorites = localStorage.getItem("favorites") as string;
+    return JSON.parse(storedFavorites) as Pokemon[];
+  }
+
+  return [];
+}
+
 export const FavoritesContext = createContext<FavoritesContextType>({
   favorites: [],
   updateFavorites: () => {},
@@ -26,12 +35,12 @@ export const FavoritesContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [state, setState] = useState<Pokemon[]>([]);
+  const [state, setState] = useState<Pokemon[]>(getFavorites());
 
   const updateFavorites = (newState: Pokemon[]) => {
     setState(newState);
+    localStorage.setItem("favorites", JSON.stringify(newState));
   };
-
 
   return (
     <FavoritesContext.Provider value={{ favorites: state, updateFavorites }}>
