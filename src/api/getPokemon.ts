@@ -5,9 +5,9 @@ import { Pokemon } from "../types/Pokemon";
 /**
  *
  * @param {string | null} [searchTerm] - name of pokemon being searched for
- * @returns {Pokemon}
+ * @returns {Pokemon: Pokemon, status: number}
  */
-export default async function getPokemon(searchTerm?: string | null) {
+export async function getPokemon(searchTerm?: string | null) {
   try {
     return axios
       .get(`https://pokeapi.co/api/v2/pokemon/${searchTerm || random(1010)}`)
@@ -25,10 +25,36 @@ export default async function getPokemon(searchTerm?: string | null) {
             isRandom: searchTerm ? false : true,
           };
 
-          return {pokemon, status};
+          return { pokemon, status };
         },
-        (err) => (err.response)
+        (err) => err.response
       );
+  } catch (err) {
+    console.log("error: ", err);
+  }
+}
+
+/**
+ *
+ * @param {number | null} id - ID of pokemon being searched for
+ * @returns {Pokemon: Pokemon, status: number}
+ */
+export async function getPokemonById(id: number) {
+  try {
+    return axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`).then(
+      (response) => {
+        const { data, status } = response;
+        const pokemon: Pokemon = {
+          id: data.id,
+          name: data.name,
+          defaultSprite: data.sprites.other["official-artwork"].front_default,
+          shinySprite: data.sprites.other["official-artwork"].front_shiny,
+          spriteIcon: data.sprites.front_default,
+        };
+        return { pokemon, status };
+      },
+      (err) => err.response
+    );
   } catch (err) {
     console.log("error: ", err);
   }

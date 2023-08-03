@@ -1,6 +1,11 @@
 import axios from "axios";
-import { sample } from "lodash";
+import { map } from "lodash";
 
+/**
+ *
+ * @param {number | null} id - ID of pokemon
+ * @returns {text: string[], status: number}
+ */
 export default async function getFlavorTextById(id: number) {
   try {
     return axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`).then(
@@ -13,12 +18,11 @@ export default async function getFlavorTextById(id: number) {
 
         const entries = data["flavor_text_entries"].filter(checkLanguage);
 
-        // get a random flavor_text & sanitize it for display
-        const sanitizedText = sample(entries)
-          .flavor_text.replace(/\r\n/g, "")
-          .replace(/\f/g, " ");
-
-        return { text: sanitizedText, status };
+        // clean up and return array of just flavor text options
+        const sanitizedTextArray = map(entries, (entry) =>
+          entry.flavor_text.replace(/\r\n/g, "").replace(/\f/g, " ")
+        );
+        return { text: sanitizedTextArray, status };
       },
       (err) => err.response
     );

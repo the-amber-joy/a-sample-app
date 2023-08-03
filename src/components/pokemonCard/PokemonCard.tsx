@@ -1,4 +1,4 @@
-import { padStart, startCase } from "lodash";
+import { padStart, sample, startCase } from "lodash";
 
 import {
   Button,
@@ -18,35 +18,60 @@ import {
 
 import { useEffect, useState } from "react";
 import getFlavorTextById from "../../api/getFlavorTextById";
-import getPokemon from "../../api/getPokemon";
+import { getPokemon } from "../../api/getPokemon";
 import { useSelectionContext } from "../../context/SelectionContext";
 import { StarBtn } from "./StarBtn";
 
 export const PokemonCard = () => {
   const { selection, updateSelection } = useSelectionContext();
-  const [pokemonDetails, setPokemonDetails] = useState<string>("");
   const [isShiny, setIsShiny] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    getPokemon().then((res) => {
-      if (res.status === 404) {
-        console.log(res);
-      }
-      if (res.status === 200) {
-        updateSelection(res.pokemon);
-        getFlavorTextById(res.pokemon.id).then((res) => {
+    getPokemon()
+      .then((res) => {
+        if (res.status === 404) {
+          console.log(res);
+        }
+        if (res.status === 200) {
+          getFlavorTextById(res.pokemon.id).then((textResponse) => {
+            if (res.status === 404) {
+              console.log(res);
+            }
+            if (res.status === 200) {
+              updateSelection({
+                ...res.pokemon,
+                descriptions: textResponse.text,
+              });
+            }
+          });
+        }
+      })
+      .finally(() => setIsLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleClick = () => {
+    setIsLoading(true);
+    getPokemon()
+      .then((res) => {
+        getFlavorTextById(res.pokemon.id).then((textResponse) => {
           if (res.status === 404) {
             console.log(res);
           }
           if (res.status === 200) {
-            setPokemonDetails(res.text);
-            setIsLoading(false);
+            updateSelection({
+              ...res.pokemon,
+              descriptions: textResponse.text,
+            });
           }
         });
-      }
-    });
-  }, []);
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setIsShiny(false);
+      });
+  };
 
   return (
     <Card w={{ base: "auto", lg: "md" }} h="xl">
@@ -84,7 +109,7 @@ export const PokemonCard = () => {
                 {startCase(selection.name)} #{" "}
                 {padStart(selection.id.toString(), 4, "0")}
               </Heading>
-              <Text>{pokemonDetails}</Text>
+              <Text>{sample(selection.descriptions)}</Text>
             </Stack>
           )}
         </CardBody>
@@ -96,24 +121,7 @@ export const PokemonCard = () => {
             isDisabled={isLoading}
             variant="solid"
             colorScheme="green"
-            onClick={() => {
-              setIsLoading(true);
-              getPokemon().then((res) => {
-                if (res) {
-                  updateSelection(res.pokemon);
-                  getFlavorTextById(res.pokemon.id).then((res) => {
-                    if (res.status === 404) {
-                      console.log(res);
-                    }
-                    if (res.status === 200) {
-                      setPokemonDetails(res.text);
-                      setIsLoading(false);
-                    }
-                  });
-                }
-              });
-              setIsShiny(false);
-            }}
+            onClick={() => handleClick()}
           >
             Pick Another!
           </Button>
