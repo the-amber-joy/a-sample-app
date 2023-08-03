@@ -5,6 +5,7 @@ import {
   HStack,
   IconButton,
   Input,
+  Spinner,
 } from "@chakra-ui/react";
 import { kebabCase } from "lodash";
 import { useState } from "react";
@@ -15,7 +16,11 @@ export const SearchComponent = () => {
   const { updateSelection } = useSelectionContext();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [isInvalid, setIsInvalid] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const handleSubmit = () => {
+    setIsLoading(true);
+
     getPokemon(kebabCase(searchTerm.toLowerCase())).then((res) => {
       if (res.status === 404) {
         setIsInvalid(true);
@@ -24,6 +29,8 @@ export const SearchComponent = () => {
         updateSelection(res.pokemon);
         setSearchTerm("");
       }
+
+      setIsLoading(false);
     });
   };
 
@@ -35,7 +42,7 @@ export const SearchComponent = () => {
       }}
     >
       <FormControl isInvalid={isInvalid}>
-        <HStack w={{ base: "sm", sm: "auto" }}>
+        <HStack w={{ base: "auto", lg: "sm" }}>
           <Input
             placeholder="Search by name"
             onChange={(e) => {
@@ -47,9 +54,9 @@ export const SearchComponent = () => {
           />
           <IconButton
             type="submit"
-            disabled={searchTerm !== ""}
+            isDisabled={isLoading || searchTerm === ""}
             aria-label="Search by name"
-            icon={<SearchIcon />}
+            icon={isLoading ? <Spinner size="sm" /> : <SearchIcon />}
             onClick={() => {
               handleSubmit();
             }}

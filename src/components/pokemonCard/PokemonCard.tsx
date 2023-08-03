@@ -49,7 +49,7 @@ export const PokemonCard = () => {
   }, []);
 
   return (
-    <Card w={{ base: "sm", sm: "auto" }} h="xl">
+    <Card w={{ base: "auto", lg: "md" }} h="xl">
       <CardHeader>
         <Heading size="md">
           {isLoading
@@ -93,6 +93,7 @@ export const PokemonCard = () => {
       <CardFooter justify="space-between">
         <ButtonGroup spacing="1">
           <Button
+            isDisabled={isLoading}
             variant="solid"
             colorScheme="green"
             onClick={() => {
@@ -117,6 +118,7 @@ export const PokemonCard = () => {
             Pick Another!
           </Button>
           <Button
+            isDisabled={isLoading}
             variant="outline"
             colorScheme={isShiny ? "purple" : "cyan"}
             onClick={() => {
@@ -126,7 +128,7 @@ export const PokemonCard = () => {
             {isShiny ? "Make it Default" : "Make it Shiny!"}
           </Button>
         </ButtonGroup>
-        {selection && <StarBtn />}
+        <StarBtn isLoading={isLoading} />
       </CardFooter>
     </Card>
   );

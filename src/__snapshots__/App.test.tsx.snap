@@ -37,121 +37,145 @@ exports[`renders correctly 1`] = `
       </button>
     </div>
     <div
-      className="css-sqchgo"
+      className="css-minuen"
     >
-      <form
-        onSubmit={[Function]}
+      <div
+        className="chakra-stack css-2ej8z4"
       >
-        <div
-          className="chakra-form-control css-1kxonj9"
-          role="group"
+        <form
+          onSubmit={[Function]}
         >
           <div
-            className="chakra-stack css-pok3cj"
+            className="chakra-form-control css-1kxonj9"
+            role="group"
           >
-            <input
-              className="chakra-input css-f21rl8"
-              disabled={false}
-              id="field-:r0:"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              placeholder="Search by name"
-              readOnly={false}
-              required={false}
-              value=""
-            />
+            <div
+              className="chakra-stack css-19phkgx"
+            >
+              <input
+                className="chakra-input css-f21rl8"
+                disabled={false}
+                id="field-:r0:"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                placeholder="Search by name"
+                readOnly={false}
+                required={false}
+                value=""
+              />
+              <button
+                aria-label="Search by name"
+                className="chakra-button css-22xpxh"
+                disabled={true}
+                onClick={[Function]}
+                type="submit"
+              >
+                <svg
+                  aria-hidden={true}
+                  className="chakra-icon css-onkibi"
+                  focusable={false}
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M23.384,21.619,16.855,15.09a9.284,9.284,0,1,0-1.768,1.768l6.529,6.529a1.266,1.266,0,0,0,1.768,0A1.251,1.251,0,0,0,23.384,21.619ZM2.75,9.5a6.75,6.75,0,1,1,6.75,6.75A6.758,6.758,0,0,1,2.75,9.5Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </form>
+        <div
+          className="chakra-card css-15w0990"
+        >
+          <div
+            className="chakra-card__header css-1sl53ol"
+          >
+            <h2
+              className="chakra-heading css-18j379d"
+            >
+              Loading 
+              Pokemon
+            </h2>
+          </div>
+          <div
+            className="chakra-card__body css-1idwstw"
+          >
+            <div
+              className="css-gmuwbf"
+            >
+              <div
+                className="chakra-spinner css-97v01s"
+              >
+                <span
+                  className="css-8b45rq"
+                >
+                  Loading...
+                </span>
+              </div>
+            </div>
+          </div>
+          <hr
+            aria-orientation="horizontal"
+            className="chakra-divider css-svjswr"
+          />
+          <div
+            className="chakra-card__footer css-yqdxxt"
+          >
+            <div
+              className="chakra-button__group css-rl82lu"
+              data-orientation="horizontal"
+              role="group"
+            >
+              <button
+                className="chakra-button css-4nu9hl"
+                disabled={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Pick Another!
+              </button>
+              <button
+                className="chakra-button css-1qpdsri"
+                disabled={true}
+                onClick={[Function]}
+                type="button"
+              >
+                Make it Shiny!
+              </button>
+            </div>
             <button
-              aria-label="Search by name"
-              className="chakra-button css-22xpxh"
+              className="chakra-button css-1cinv5i"
+              disabled={true}
               onClick={[Function]}
-              type="submit"
+              type="button"
             >
               <svg
-                aria-hidden={true}
                 className="chakra-icon css-onkibi"
                 focusable={false}
                 viewBox="0 0 24 24"
               >
                 <path
-                  d="M23.384,21.619,16.855,15.09a9.284,9.284,0,1,0-1.768,1.768l6.529,6.529a1.266,1.266,0,0,0,1.768,0A1.251,1.251,0,0,0,23.384,21.619ZM2.75,9.5a6.75,6.75,0,1,1,6.75,6.75A6.758,6.758,0,0,1,2.75,9.5Z"
+                  d="M23.555,8.729a1.505,1.505,0,0,0-1.406-.98H16.062a.5.5,0,0,1-.472-.334L13.405,1.222a1.5,1.5,0,0,0-2.81,0l-.005.016L8.41,7.415a.5.5,0,0,1-.471.334H1.85A1.5,1.5,0,0,0,.887,10.4l5.184,4.3a.5.5,0,0,1,.155.543L4.048,21.774a1.5,1.5,0,0,0,2.31,1.684l5.346-3.92a.5.5,0,0,1,.591,0l5.344,3.919a1.5,1.5,0,0,0,2.312-1.683l-2.178-6.535a.5.5,0,0,1,.155-.543l5.194-4.306A1.5,1.5,0,0,0,23.555,8.729Z"
                   fill="currentColor"
                 />
               </svg>
             </button>
           </div>
         </div>
-      </form>
-      <div
-        className="chakra-card css-1s44or5"
-      >
         <div
-          className="chakra-card__header css-1sl53ol"
+          className="chakra-stack css-1vvozj3"
         >
           <h2
-            className="chakra-heading css-18j379d"
+            className="chakra-heading css-1dklj6k"
           >
-            Loading 
-            Pokemon
+            Favorites
           </h2>
-        </div>
-        <div
-          className="chakra-card__body css-1idwstw"
-        >
           <div
-            className="css-gmuwbf"
-          >
-            <div
-              className="chakra-spinner css-97v01s"
-            >
-              <span
-                className="css-8b45rq"
-              >
-                Loading...
-              </span>
-            </div>
-          </div>
+            className="chakra-stack css-1iz79u8"
+          />
         </div>
-        <hr
-          aria-orientation="horizontal"
-          className="chakra-divider css-svjswr"
-        />
-        <div
-          className="chakra-card__footer css-yqdxxt"
-        >
-          <div
-            className="chakra-button__group css-rl82lu"
-            data-orientation="horizontal"
-            role="group"
-          >
-            <button
-              className="chakra-button css-4nu9hl"
-              onClick={[Function]}
-              type="button"
-            >
-              Pick Another!
-            </button>
-            <button
-              className="chakra-button css-1qpdsri"
-              onClick={[Function]}
-              type="button"
-            >
-              Make it Shiny!
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        className="chakra-stack css-khgzdf"
-      >
-        <h2
-          className="chakra-heading css-1dklj6k"
-        >
-          Favorites
-        </h2>
-        <div
-          className="chakra-stack css-1iz79u8"
-        />
       </div>
     </div>
   </div>,
