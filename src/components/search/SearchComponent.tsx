@@ -22,29 +22,26 @@ export const SearchComponent = () => {
   const handleSubmit = () => {
     setIsLoading(true);
 
-    getPokemon(kebabCase(searchTerm.toLowerCase()))
-      .then((res) => {
-        if (res.status === 404) {
-          setIsInvalid(true);
-        }
-        if (res.status === 200) {
-          getFlavorTextById(res.pokemon.id).then((textResponse) => {
-            if (res.status === 404) {
-              console.log(res);
-            }
-            if (res.status === 200) {
-              updateSelection({
-                ...res.pokemon,
-                descriptions: textResponse.text,
-              });
-            }
-          });
-        }
-      })
-      .finally(() => {
-        setIsLoading(false);
-        setSearchTerm("");
-      });
+    getPokemon(kebabCase(searchTerm.toLowerCase())).then((res) => {
+      if (res.status === 404) {
+        setIsInvalid(true);
+      }
+      if (res.status === 200) {
+        getFlavorTextById(res.pokemon.id).then((textResponse) => {
+          if (res.status === 404) {
+            console.log(res);
+          }
+          if (res.status === 200) {
+            updateSelection({
+              ...res.pokemon,
+              descriptions: textResponse.text,
+            });
+          }
+        });
+      }
+      setIsLoading(false);
+      setSearchTerm("");
+    });
   };
 
   return (

@@ -28,33 +28,11 @@ export const PokemonCard = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    getPokemon()
-      .then((res) => {
-        if (res.status === 404) {
-          console.log(res);
-        }
-        if (res.status === 200) {
-          getFlavorTextById(res.pokemon.id).then((textResponse) => {
-            if (res.status === 404) {
-              console.log(res);
-            }
-            if (res.status === 200) {
-              updateSelection({
-                ...res.pokemon,
-                descriptions: textResponse.text,
-              });
-            }
-          });
-        }
-      })
-      .finally(() => setIsLoading(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleClick = () => {
-    setIsLoading(true);
-    getPokemon()
-      .then((res) => {
+    getPokemon().then((res) => {
+      if (res.status === 404) {
+        console.log(res);
+      }
+      if (res.status === 200) {
         getFlavorTextById(res.pokemon.id).then((textResponse) => {
           if (res.status === 404) {
             console.log(res);
@@ -66,11 +44,29 @@ export const PokemonCard = () => {
             });
           }
         });
-      })
-      .finally(() => {
+      }
+      setIsLoading(false);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleClick = () => {
+    setIsLoading(true);
+    getPokemon().then((res) => {
+      getFlavorTextById(res.pokemon.id).then((textResponse) => {
+        if (res.status === 404) {
+          console.log(res);
+        }
+        if (res.status === 200) {
+          updateSelection({
+            ...res.pokemon,
+            descriptions: textResponse.text,
+          });
+        }
         setIsLoading(false);
         setIsShiny(false);
       });
+    });
   };
 
   return (
@@ -88,7 +84,7 @@ export const PokemonCard = () => {
       {isLoading && (
         <CardBody>
           <Center>
-            <Spinner size="xl"/>
+            <Spinner size="xl" />
           </Center>
         </CardBody>
       )}
