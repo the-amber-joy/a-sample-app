@@ -87,7 +87,7 @@ exports[`renders correctly 1`] = `
           </div>
         </form>
         <div
-          className="chakra-card css-15w0990"
+          className="chakra-card css-tvyu66"
         >
           <div
             className="chakra-card__header css-1sl53ol"
@@ -106,7 +106,7 @@ exports[`renders correctly 1`] = `
               className="css-gmuwbf"
             >
               <div
-                className="chakra-spinner css-97v01s"
+                className="chakra-spinner css-jmuyva"
               >
                 <span
                   className="css-8b45rq"
@@ -129,7 +129,7 @@ exports[`renders correctly 1`] = `
               role="group"
             >
               <button
-                className="chakra-button css-4nu9hl"
+                className="chakra-button css-4q1fv"
                 disabled={true}
                 onClick={[Function]}
                 type="button"
@@ -137,7 +137,7 @@ exports[`renders correctly 1`] = `
                 Pick Another!
               </button>
               <button
-                className="chakra-button css-1qpdsri"
+                className="chakra-button css-robh9b"
                 disabled={true}
                 onClick={[Function]}
                 type="button"
@@ -146,7 +146,7 @@ exports[`renders correctly 1`] = `
               </button>
             </div>
             <button
-              className="chakra-button css-1cinv5i"
+              className="chakra-button css-18g7yvo"
               disabled={true}
               onClick={[Function]}
               type="button"
@@ -165,7 +165,7 @@ exports[`renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="chakra-stack css-xm1ju8"
+          className="chakra-stack css-1vvozj3"
         >
           <h2
             className="chakra-heading css-1dklj6k"
@@ -173,7 +173,7 @@ exports[`renders correctly 1`] = `
             Favorites
           </h2>
           <div
-            className="chakra-stack css-1iz79u8"
+            className="chakra-stack css-1s7js4x"
           />
         </div>
       </div>

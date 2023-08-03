@@ -74,7 +74,7 @@ export const PokemonCard = () => {
   };
 
   return (
-    <Card w={{ base: "auto", lg: "md" }} h={{ base: "auto", lg: "xl" }}>
+    <Card w={{ base: "auto", lg: "md" }} minHeight="xl">
       <CardHeader>
         <Heading size="md">
           {isLoading
@@ -88,7 +88,7 @@ export const PokemonCard = () => {
       {isLoading && (
         <CardBody>
           <Center>
-            <Spinner size="xl" marginTop={125} />
+            <Spinner size="xl"/>
           </Center>
         </CardBody>
       )}
