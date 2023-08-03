@@ -74,7 +74,7 @@ export const PokemonCard = () => {
   };
 
   return (
-    <Card w={{ base: "auto", lg: "md" }} h="xl">
+    <Card w={{ base: "auto", lg: "md" }} h={{ base: "auto", lg: "xl" }}>
       <CardHeader>
         <Heading size="md">
           {isLoading
@@ -122,6 +122,7 @@ export const PokemonCard = () => {
             variant="solid"
             colorScheme="green"
             onClick={() => handleClick()}
+            size={{ base: "xs", md: "sm", lg: "md" }}
           >
             Pick Another!
           </Button>
@@ -132,6 +133,7 @@ export const PokemonCard = () => {
             onClick={() => {
               setIsShiny(!isShiny);
             }}
+            size={{ base: "xs", md: "sm", lg: "md" }}
           >
             {isShiny ? "Make it Default" : "Make it Shiny!"}
           </Button>

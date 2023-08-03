@@ -7,9 +7,9 @@ export const Favorites = () => {
   const { favorites } = useFavoritesContext();
 
   return (
-    <VStack w={"auto"} overflowY="auto">
+    <VStack w={"auto"}>
       <Heading>Favorites</Heading>
-      <Stack spacing={1} h="lg" w="auto" alignContent="center">
+      <Stack spacing={1} h="lg" w="auto" alignContent="center" overflowY="auto">
         {map(favorites, (favorite) => {
           return (
             <FavoriteCard

@@ -15,6 +15,7 @@ export const StarBtn = ({ isLoading }: { isLoading: boolean }) => {
       isDisabled={isLoading}
       variant={isFave ? "solid" : "outline"}
       colorScheme="yellow"
+      size={{ base: "xs", md: "sm", lg: "md" }}
       onClick={() => {
         if (selection) {
           if (isFave) {
