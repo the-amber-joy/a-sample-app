@@ -1,12 +1,17 @@
 import axios from "axios";
 import { map } from "lodash";
 
+export interface FlavorTextResponse {
+  text: string[];
+  status: number
+}
+
 /**
  *
  * @param {number | null} id - ID of pokemon
- * @returns {text: string[], status: number}
+ * @returns {FlavorTextResponse}
  */
-export default async function getFlavorTextById(id: number) {
+export async function getFlavorTextById(id: number) {
   try {
     return axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`).then(
       (response) => {

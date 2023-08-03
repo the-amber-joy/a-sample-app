@@ -4,7 +4,7 @@ import { padStart, startCase } from "lodash";
 import { useSelectionContext } from "../../context/SelectionContext";
 import { Pokemon } from "../../types/Pokemon";
 import { getPokemonById } from "../../api/getPokemon";
-import getFlavorTextById from "../../api/getFlavorTextById";
+import { getFlavorTextById } from "../../api/getFlavorTextById";
 
 export const FavoriteCard = ({ name, id, spriteIcon }: Pokemon) => {
   const { updateSelection } = useSelectionContext();
