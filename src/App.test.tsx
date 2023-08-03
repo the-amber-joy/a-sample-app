@@ -1,10 +1,11 @@
-import { screen } from "@testing-library/react";
+import renderer from "react-test-renderer";
 import "@testing-library/jest-dom";
-import { render } from "./test-utils";
+
 import { App } from "./App";
 
-test("renders Loading Pokemon text initially", () => {
-  render(<App />);
-  const el = screen.getByText("Loading Pokemon");
-  expect(el).toBeInTheDocument();
+it("renders correctly", () => {
+  const tree = renderer
+    .create(<App />)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
 });
