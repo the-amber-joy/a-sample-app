@@ -17,10 +17,14 @@ import {
 } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
-import getFlavorTextById from "../../api/getFlavorTextById";
-import { getPokemon } from "../../api/getPokemon";
+import {
+  FlavorTextResponse,
+  getFlavorTextById,
+} from "../../api/getFlavorTextById";
+import { PokemonResponse, getPokemon } from "../../api/getPokemon";
 import { useSelectionContext } from "../../context/SelectionContext";
 import { StarBtn } from "./StarBtn";
+import { Pokemon } from "../../types/Pokemon";
 
 export const PokemonCard = () => {
   const { selection, updateSelection } = useSelectionContext();
@@ -30,6 +34,39 @@ export const PokemonCard = () => {
   const [flavorText, setFlavorText] = useState<string>("");
 
   useEffect(() => {
+    const fetchFlavorText = async (pokemon: Pokemon) => {
+      await getFlavorTextById(pokemon.id).then((res: FlavorTextResponse) => {
+        if (res.status === 404) {
+          console.log(res);
+        }
+        if (res.status === 200) {
+          updateSelection({
+            ...pokemon,
+            descriptions: res.text,
+          });
+          setIsLoading(false);
+        }
+      });
+    };
+
+    const fetchPokemon = async () => {
+      await getPokemon().then(async (res: PokemonResponse) => {
+        if (res.status === 404) {
+          console.log(res);
+        }
+        if (res.status === 200) {
+          await fetchFlavorText(res.pokemon);
+        }
+      });
+    };
+
+    fetchPokemon();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleClick = () => {
+    setIsLoading(true);
     getPokemon().then((res) => {
       if (res.status === 404) {
         console.log(res);
@@ -45,29 +82,10 @@ export const PokemonCard = () => {
               descriptions: textResponse.text,
             });
           }
+          setIsLoading(false);
+          setIsShiny(false);
         });
       }
-      setIsLoading(false);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleClick = () => {
-    setIsLoading(true);
-    getPokemon().then((res) => {
-      getFlavorTextById(res.pokemon.id).then((textResponse) => {
-        if (res.status === 404) {
-          console.log(res);
-        }
-        if (res.status === 200) {
-          updateSelection({
-            ...res.pokemon,
-            descriptions: textResponse.text,
-          });
-        }
-        setIsLoading(false);
-        setIsShiny(false);
-      });
     });
   };
 

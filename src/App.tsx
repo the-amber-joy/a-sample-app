@@ -5,12 +5,12 @@ import { SelectionContextProvider } from "./context/SelectionContext";
 
 export const App = () => {
   return (
-    <FavoritesContextProvider>
-      <SelectionContextProvider>
-        <ChakraProvider theme={theme}>
+    <ChakraProvider theme={theme}>
+      <FavoritesContextProvider>
+        <SelectionContextProvider>
           <Layout />
-        </ChakraProvider>
-      </SelectionContextProvider>
-    </FavoritesContextProvider>
+        </SelectionContextProvider>
+      </FavoritesContextProvider>
+    </ChakraProvider>
   );
 };

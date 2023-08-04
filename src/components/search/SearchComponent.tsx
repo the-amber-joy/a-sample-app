@@ -9,9 +9,9 @@ import {
 } from "@chakra-ui/react";
 import { kebabCase } from "lodash";
 import { useState } from "react";
-import { getPokemon } from "../../api/getPokemon";
+import { PokemonResponse, getPokemon } from "../../api/getPokemon";
 import { useSelectionContext } from "../../context/SelectionContext";
-import getFlavorTextById from "../../api/getFlavorTextById";
+import { FlavorTextResponse, getFlavorTextById } from "../../api/getFlavorTextById";
 
 export const SearchComponent = () => {
   const { updateSelection } = useSelectionContext();
@@ -19,15 +19,15 @@ export const SearchComponent = () => {
   const [isInvalid, setIsInvalid] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setIsLoading(true);
 
-    getPokemon(kebabCase(searchTerm.toLowerCase())).then((res) => {
+    await getPokemon(kebabCase(searchTerm.toLowerCase())).then((res: PokemonResponse) => {
       if (res.status === 404) {
         setIsInvalid(true);
       }
       if (res.status === 200) {
-        getFlavorTextById(res.pokemon.id).then((textResponse) => {
+        getFlavorTextById(res.pokemon.id).then((textResponse: FlavorTextResponse) => {
           if (res.status === 404) {
             console.log(res);
           }
