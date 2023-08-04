@@ -164,7 +164,6 @@ export const PokemonCard = () => {
           </Button>
         </ButtonGroup>
         <StarBtn
-          isLoading={isLoading}
           size={{ base: "sm", lg: "md" }}
           isDisabled={isLoading}
           selection={selection}

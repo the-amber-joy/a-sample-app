@@ -120,15 +120,15 @@ exports[`renders correctly 1`] = `
             className="chakra-divider css-svjswr"
           />
           <div
-            className="chakra-card__footer css-yqdxxt"
+            className="chakra-card__footer css-1wwpnfi"
           >
             <div
-              className="chakra-button__group css-rl82lu"
+              className="chakra-button__group css-14gqi87"
               data-orientation="horizontal"
               role="group"
             >
               <button
-                className="chakra-button css-4q1fv"
+                className="chakra-button css-1ylhhau"
                 disabled={true}
                 onClick={[Function]}
                 type="button"
@@ -136,7 +136,7 @@ exports[`renders correctly 1`] = `
                 Pick Another!
               </button>
               <button
-                className="chakra-button css-robh9b"
+                className="chakra-button css-m77jpm"
                 disabled={true}
                 onClick={[Function]}
                 type="button"
@@ -145,9 +145,11 @@ exports[`renders correctly 1`] = `
               </button>
             </div>
             <button
-              className="chakra-button css-18g7yvo"
+              aria-label="Save this Pokemon as a Favorite"
+              className="chakra-button css-f3ugdt"
               disabled={true}
               onClick={[Function]}
+              selection={{}}
               type="button"
             >
               <svg
@@ -164,7 +166,7 @@ exports[`renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="chakra-stack css-1vvozj3"
+          className="chakra-stack css-osw3wy"
         >
           <h2
             className="chakra-heading css-1dklj6k"

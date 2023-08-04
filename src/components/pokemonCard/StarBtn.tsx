@@ -6,7 +6,6 @@ import { isFavorite } from "../../util";
 import { Pokemon } from "../../types/Pokemon";
 
 interface StarBtnProps extends ButtonProps {
-  isLoading: boolean;
   selection: Pokemon | null;
 }
 
@@ -16,6 +15,7 @@ export const StarBtn = (props: StarBtnProps) => {
   const isFave = selection && isFavorite(favorites, selection.id);
   return (
     <Button
+      aria-label="Save this Pokemon as a Favorite"
       variant={isFave ? "solid" : "outline"}
       colorScheme="yellow"
       onClick={() => {
