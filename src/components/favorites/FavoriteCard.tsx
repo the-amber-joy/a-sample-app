@@ -33,7 +33,7 @@ export const FavoriteCard = ({ name, id, spriteIcon }: Pokemon) => {
   return (
     <Button
       minH="75px"
-      minW="md"
+      minW="sm"
       onClick={() => {
         handleClick();
       }}

@@ -6,7 +6,7 @@ interface SelectionContextType {
   updateSelection: (newSelection: Pokemon) => void;
 }
 
-export const SelectionContext = createContext<SelectionContextType | null>(null);
+export const SelectionContext = createContext<SelectionContextType>({} as SelectionContextType);
 
 export const useSelectionContext = () => {
   const context = useContext(SelectionContext);
@@ -23,7 +23,7 @@ export const SelectionContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [state, setState] = useState<Pokemon | null>(null);
+  const [state, setState] = useState<Pokemon>({} as Pokemon);
 
   const updateSelection = (newState: Pokemon) => {
     setState(newState);

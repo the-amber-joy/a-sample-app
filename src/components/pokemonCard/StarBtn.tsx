@@ -1,21 +1,23 @@
 import { StarIcon } from "@chakra-ui/icons";
-import { Button } from "@chakra-ui/react";
+import { Button, ButtonProps } from "@chakra-ui/react";
 import { filter } from "lodash";
 import { useFavoritesContext } from "../../context/FavoritesContext";
-import { useSelectionContext } from "../../context/SelectionContext";
 import { isFavorite } from "../../util";
+import { Pokemon } from "../../types/Pokemon";
 
-export const StarBtn = ({ isLoading }: { isLoading: boolean }) => {
-  const { selection } = useSelectionContext();
+interface StarBtnProps extends ButtonProps {
+  isLoading: boolean;
+  selection: Pokemon | null;
+}
 
+export const StarBtn = (props: StarBtnProps) => {
+  const { selection } = props;
   const { favorites, updateFavorites } = useFavoritesContext();
   const isFave = selection && isFavorite(favorites, selection.id);
   return (
     <Button
-      isDisabled={isLoading}
       variant={isFave ? "solid" : "outline"}
       colorScheme="yellow"
-      size={{ base: "xs", md: "sm", lg: "md" }}
       onClick={() => {
         if (selection) {
           if (isFave) {
@@ -29,6 +31,7 @@ export const StarBtn = ({ isLoading }: { isLoading: boolean }) => {
           }
         }
       }}
+      {...props}
     >
       <StarIcon />
     </Button>

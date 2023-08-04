@@ -126,25 +126,28 @@ export const PokemonCard = () => {
             />
           </Center>
           {selection && (
-            <Stack mt="6" spacing="3">
+            <Stack mt="6">
               <Heading size="md">
                 {startCase(selection.name)} #{" "}
                 {padStart(selection.id.toString(), 4, "0")}
               </Heading>
-              <Text>{flavorText}</Text>
+              <Text fontSize="lg">{flavorText}</Text>
             </Stack>
           )}
         </CardBody>
       )}
       <Divider />
-      <CardFooter justify="space-between">
-        <ButtonGroup spacing="1">
+      <CardFooter justify="space-between" alignItems="center">
+        <ButtonGroup
+          spacing={{ base: "0", sm: "1" }}
+          flexDirection={{ base: "column", sm: "row" }}
+        >
           <Button
             isDisabled={isLoading}
             variant="solid"
             colorScheme="green"
             onClick={() => handleClick()}
-            size={{ base: "xs", md: "sm", lg: "md" }}
+            size={{ base: "sm", lg: "md" }}
           >
             Pick Another!
           </Button>
@@ -155,12 +158,17 @@ export const PokemonCard = () => {
             onClick={() => {
               setIsShiny(!isShiny);
             }}
-            size={{ base: "xs", md: "sm", lg: "md" }}
+            size={{ base: "sm", lg: "md" }}
           >
             {isShiny ? "Make it Default" : "Make it Shiny!"}
           </Button>
         </ButtonGroup>
-        <StarBtn isLoading={isLoading} />
+        <StarBtn
+          isLoading={isLoading}
+          size={{ base: "sm", lg: "md" }}
+          isDisabled={isLoading}
+          selection={selection}
+        />
       </CardFooter>
     </Card>
   );

@@ -12,7 +12,7 @@ function getFavorites() {
     return JSON.parse(storedFavorites) as Pokemon[];
   }
 
-  return [];
+  return [] as Pokemon[];
 }
 
 export const FavoritesContext = createContext<FavoritesContextType>({
