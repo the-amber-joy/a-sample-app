@@ -78,6 +78,7 @@ export const SearchComponent = () => {
                 <CloseButton
                   aria-label="Clear Search Input"
                   onClick={() => {
+                    setIsInvalid(false);
                     setSearchTerm("");
                   }}
                 />
