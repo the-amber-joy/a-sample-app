@@ -1,10 +1,13 @@
-import { SearchIcon } from "@chakra-ui/icons";
+import { CheckIcon, CloseIcon, SearchIcon } from "@chakra-ui/icons";
 import {
+  CloseButton,
   FormControl,
   FormErrorMessage,
   HStack,
   IconButton,
   Input,
+  InputGroup,
+  InputRightElement,
   Spinner,
 } from "@chakra-ui/react";
 import { kebabCase } from "lodash";
@@ -60,15 +63,27 @@ export const SearchComponent = () => {
     >
       <FormControl isInvalid={isInvalid}>
         <HStack w={{ base: "auto", lg: "sm" }}>
-          <Input
-            placeholder="Search by name"
-            onChange={(e) => {
-              setIsInvalid(false);
-              setSearchTerm(e.currentTarget.value);
-            }}
-            value={searchTerm}
-            errorBorderColor="red"
-          />
+          <InputGroup>
+            <Input
+              placeholder="Search by name"
+              onChange={(e) => {
+                setIsInvalid(false);
+                setSearchTerm(e.currentTarget.value);
+              }}
+              value={searchTerm}
+              errorBorderColor="red"
+            />
+            {searchTerm !== "" && (
+              <InputRightElement>
+                <CloseButton
+                  aria-label="Clear Search Input"
+                  onClick={() => {
+                    setSearchTerm("");
+                  }}
+                />
+              </InputRightElement>
+            )}
+          </InputGroup>
           <IconButton
             type="submit"
             isDisabled={isLoading || searchTerm === ""}

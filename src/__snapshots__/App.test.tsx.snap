@@ -52,18 +52,23 @@ exports[`renders correctly 1`] = `
             <div
               className="chakra-stack css-19phkgx"
             >
-              <input
-                className="chakra-input css-f21rl8"
-                disabled={false}
-                id="field-:r0:"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                placeholder="Search by name"
-                readOnly={false}
-                required={false}
-                value=""
-              />
+              <div
+                className="chakra-input__group css-1y0e7gb"
+                data-group={true}
+              >
+                <input
+                  className="chakra-input css-f21rl8"
+                  disabled={false}
+                  id="field-:r0:"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  placeholder="Search by name"
+                  readOnly={false}
+                  required={false}
+                  value=""
+                />
+              </div>
               <button
                 aria-label="Search by name"
                 className="chakra-button css-22xpxh"
