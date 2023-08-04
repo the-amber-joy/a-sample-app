@@ -11,7 +11,10 @@ import { kebabCase } from "lodash";
 import { useState } from "react";
 import { PokemonResponse, getPokemon } from "../../api/getPokemon";
 import { useSelectionContext } from "../../context/SelectionContext";
-import { FlavorTextResponse, getFlavorTextById } from "../../api/getFlavorTextById";
+import {
+  FlavorTextResponse,
+  getFlavorTextById,
+} from "../../api/getFlavorTextById";
 
 export const SearchComponent = () => {
   const { updateSelection } = useSelectionContext();
@@ -22,26 +25,30 @@ export const SearchComponent = () => {
   const handleSubmit = async () => {
     setIsLoading(true);
 
-    await getPokemon(kebabCase(searchTerm.toLowerCase())).then((res: PokemonResponse) => {
-      if (res.status === 404) {
-        setIsInvalid(true);
+    await getPokemon(kebabCase(searchTerm.toLowerCase())).then(
+      (res: PokemonResponse) => {
+        if (res.status === 404) {
+          setIsInvalid(true);
+        }
+        if (res.status === 200) {
+          getFlavorTextById(res.pokemon.id).then(
+            (textResponse: FlavorTextResponse) => {
+              if (res.status === 404) {
+                console.log(res);
+              }
+              if (res.status === 200) {
+                updateSelection({
+                  ...res.pokemon,
+                  descriptions: textResponse.text,
+                });
+              }
+            }
+          );
+          setSearchTerm("");
+        }
+        setIsLoading(false);
       }
-      if (res.status === 200) {
-        getFlavorTextById(res.pokemon.id).then((textResponse: FlavorTextResponse) => {
-          if (res.status === 404) {
-            console.log(res);
-          }
-          if (res.status === 200) {
-            updateSelection({
-              ...res.pokemon,
-              descriptions: textResponse.text,
-            });
-          }
-        });
-      }
-      setIsLoading(false);
-      setSearchTerm("");
-    });
+    );
   };
 
   return (
