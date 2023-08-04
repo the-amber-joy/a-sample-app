@@ -55,12 +55,12 @@ export const PokemonCard = () => {
           console.log(res);
         }
         if (res.status === 200) {
-          await fetchFlavorText(res.pokemon);
+          await fetchFlavorText(res.pokemon).catch(console.error);
         }
       });
     };
 
-    fetchPokemon();
+    fetchPokemon().catch(console.error);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
