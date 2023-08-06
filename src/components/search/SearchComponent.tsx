@@ -1,4 +1,4 @@
-import { CheckIcon, CloseIcon, SearchIcon } from "@chakra-ui/icons";
+import { SearchIcon } from "@chakra-ui/icons";
 import {
   CloseButton,
   FormControl,
