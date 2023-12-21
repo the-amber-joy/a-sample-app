@@ -15,7 +15,8 @@ export interface PokemonResponse {
 export async function getPokemon(searchTerm?: string | null) {
   try {
     return axios
-      .get(`https://pokeapi.co/api/v2/pokemon/${searchTerm || random(1, 1025)}`)
+    // As of 2023-12-20, PokeAPI goes up to 1025, but no flavor text after 1008, and no pix after 1017 
+      .get(`https://pokeapi.co/api/v2/pokemon/${searchTerm || random(1, 1008)}`)
       .then(
         (response) => {
           const { data, status } = response;
