@@ -5,7 +5,7 @@ import { PokemonCard } from "../pokemonCard/PokemonCard";
 import { SearchComponent } from "../search/SearchComponent";
 
 export const Layout = () => (
-  <Box textAlign="center" fontSize="xl">
+  <Box textAlign="center" fontSize="xl" minHeight="100vh" maxWidth="1280px">
     <ColorModeSwitcher />
     <Flex p={4} w="100%" direction={{ base: "column", lg: "row" }}>
       <Stack

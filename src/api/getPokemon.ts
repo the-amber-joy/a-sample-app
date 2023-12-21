@@ -15,7 +15,7 @@ export interface PokemonResponse {
 export async function getPokemon(searchTerm?: string | null) {
   try {
     return axios
-      .get(`https://pokeapi.co/api/v2/pokemon/${searchTerm || random(1010)}`)
+      .get(`https://pokeapi.co/api/v2/pokemon/${searchTerm || random(1, 1025)}`)
       .then(
         (response) => {
           const { data, status } = response;
