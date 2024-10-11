@@ -27,7 +27,9 @@ export const SearchComponent = () => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    // if searchTerm contains a numerical digit and no spaces, do not apply toLowerCase method
+    // kebabcase considers number to be separate words
+    // The only pokemon with a number in its name is Porygon 2,
+    // whose slug is 'porygon2' and should not be hyphenated
     const sanitizedSearchTerm =
       searchTerm.toLowerCase() === "porygon2" ||
       searchTerm.toLowerCase() === "porygon 2"

@@ -3,7 +3,7 @@
 exports[`renders correctly 1`] = `
 [
   <div
-    className="css-12hvf5p"
+    className="css-2haa85"
   >
     <div
       className="css-1uwjw6e"
@@ -12,6 +12,7 @@ exports[`renders correctly 1`] = `
         aria-label="Switch to dark mode"
         className="chakra-button css-rpznon"
         onClick={[Function]}
+        title="Switch to dark mode"
         type="button"
       >
         <svg
