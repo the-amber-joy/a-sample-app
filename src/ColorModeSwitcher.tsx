@@ -18,6 +18,7 @@ export const ColorModeSwitcher: React.FC<ColorModeSwitcherProps> = (props) => {
   return (
     <Flex justify="right">
       <IconButton
+        title={`Switch to ${text} mode`}
         size="md"
         fontSize="lg"
         variant="ghost"

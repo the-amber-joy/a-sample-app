@@ -12,12 +12,12 @@ import {
 } from "@chakra-ui/react";
 import { kebabCase } from "lodash";
 import { useState } from "react";
-import { PokemonResponse, getPokemon } from "../../api/getPokemon";
-import { useSelectionContext } from "../../context/SelectionContext";
 import {
   FlavorTextResponse,
   getFlavorTextById,
 } from "../../api/getFlavorTextById";
+import { PokemonResponse, getPokemon } from "../../api/getPokemon";
+import { useSelectionContext } from "../../context/SelectionContext";
 
 export const SearchComponent = () => {
   const { updateSelection } = useSelectionContext();
@@ -27,31 +27,34 @@ export const SearchComponent = () => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-
-    await getPokemon(kebabCase(searchTerm.toLowerCase())).then(
-      (res: PokemonResponse) => {
-        if (res.status === 404) {
-          setIsInvalid(true);
-        }
-        if (res.status === 200) {
-          getFlavorTextById(res.pokemon.id).then(
-            (textResponse: FlavorTextResponse) => {
-              if (res.status === 404) {
-                console.log(res);
-              }
-              if (res.status === 200) {
-                updateSelection({
-                  ...res.pokemon,
-                  descriptions: textResponse.text,
-                });
-              }
-            }
-          );
-          setSearchTerm("");
-        }
-        setIsLoading(false);
+    // if searchTerm contains a numerical digit and no spaces, do not apply toLowerCase method
+    const sanitizedSearchTerm =
+      searchTerm.toLowerCase() === "porygon2" ||
+      searchTerm.toLowerCase() === "porygon 2"
+        ? "porygon2"
+        : kebabCase(searchTerm.toLowerCase());
+    await getPokemon(sanitizedSearchTerm).then((res: PokemonResponse) => {
+      if (res.status === 404) {
+        setIsInvalid(true);
       }
-    );
+      if (res.status === 200) {
+        getFlavorTextById(res.pokemon.id).then(
+          (textResponse: FlavorTextResponse) => {
+            if (res.status === 404) {
+              console.log(res);
+            }
+            if (res.status === 200) {
+              updateSelection({
+                ...res.pokemon,
+                descriptions: textResponse.text,
+              });
+            }
+          },
+        );
+        setSearchTerm("");
+      }
+      setIsLoading(false);
+    });
   };
 
   return (
