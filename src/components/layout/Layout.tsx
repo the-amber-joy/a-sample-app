@@ -1,5 +1,5 @@
 import { Box, Flex, Stack } from "@chakra-ui/react";
-import { ColorModeSwitcher } from "../../ColorModeSwitcher";
+import { ColorModeSwitcher } from "./ColorModeSwitcher";
 import { Favorites } from "../favorites/Favorites";
 import { PokemonCard } from "../pokemonCard/PokemonCard";
 import { SearchComponent } from "../search/SearchComponent";

@@ -2,7 +2,7 @@ import { StarIcon } from "@chakra-ui/icons";
 import { Button, ButtonProps } from "@chakra-ui/react";
 import { filter } from "lodash";
 import { useFavoritesContext } from "../../context/FavoritesContext";
-import { isFavorite } from "../../util";
+import { isFavorite } from "./isFavorite";
 import { Pokemon } from "../../types/Pokemon";
 
 interface StarBtnProps extends ButtonProps {
