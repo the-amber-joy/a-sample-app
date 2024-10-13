@@ -1,9 +1,9 @@
-import axios from "axios";
 import { map } from "lodash";
+import { P } from "./Pokedex";
 
 export interface FlavorTextResponse {
   text: string[];
-  status: number
+  status: number;
 }
 
 /**
@@ -13,23 +13,28 @@ export interface FlavorTextResponse {
  */
 export async function getFlavorTextById(id: number) {
   try {
-    return axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`).then(
-      (response) => {
-        const { data, status } = response;
-
+    return await P.getPokemonSpeciesByName(id).then(
+      (response: {
+        flavor_text_entries: {
+          language: { name: string };
+          flavor_text: string;
+        }[];
+        status: number;
+      }) => {
         function checkLanguage(obj: { language: { name: string } }) {
-          return obj.language.name === "en";
+          const preferredLanguage = navigator.language.split("-")[0] || "en";
+          return obj.language.name === preferredLanguage;
         }
 
-        const entries = data["flavor_text_entries"].filter(checkLanguage);
+        const entries = response["flavor_text_entries"].filter(checkLanguage);
 
         // clean up and return array of just flavor text options
         const sanitizedTextArray = map(entries, (entry) =>
-          entry.flavor_text.replace(/\r\n/g, "").replace(/\f/g, " ")
+          entry.flavor_text.replace(/\r\n/g, "").replace(/\f/g, " "),
         );
-        return { text: sanitizedTextArray, status };
+        return { text: sanitizedTextArray, status: response.status };
       },
-      (err) => err.response
+      (err: { response: any }) => err.response,
     );
   } catch (err) {
     console.log("error: ", err);

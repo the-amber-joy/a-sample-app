@@ -23,8 +23,8 @@ import {
 } from "../../api/getFlavorTextById";
 import { PokemonResponse, getPokemon } from "../../api/getPokemon";
 import { useSelectionContext } from "../../context/SelectionContext";
-import { StarBtn } from "./StarBtn";
 import { Pokemon } from "../../types/Pokemon";
+import { StarBtn } from "./StarBtn";
 
 export const PokemonCard = () => {
   const { selection, updateSelection } = useSelectionContext();
@@ -38,8 +38,7 @@ export const PokemonCard = () => {
       await getFlavorTextById(pokemon.id).then((res: FlavorTextResponse) => {
         if (res.status === 404) {
           console.log(res);
-        }
-        if (res.status === 200) {
+        } else {
           updateSelection({
             ...pokemon,
             descriptions: res.text,
@@ -53,8 +52,7 @@ export const PokemonCard = () => {
       await getPokemon().then(async (res: PokemonResponse) => {
         if (res.status === 404) {
           console.log(res);
-        }
-        if (res.status === 200) {
+        } else {
           await fetchFlavorText(res.pokemon).catch(console.error);
         }
       });
@@ -70,13 +68,11 @@ export const PokemonCard = () => {
     getPokemon().then((res) => {
       if (res.status === 404) {
         console.log(res);
-      }
-      if (res.status === 200) {
+      } else {
         getFlavorTextById(res.pokemon.id).then((textResponse) => {
           if (res.status === 404) {
             console.log(res);
-          }
-          if (res.status === 200) {
+          } else {
             updateSelection({
               ...res.pokemon,
               descriptions: textResponse.text,

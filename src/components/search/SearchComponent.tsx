@@ -38,14 +38,12 @@ export const SearchComponent = () => {
     await getPokemon(sanitizedSearchTerm).then((res: PokemonResponse) => {
       if (res.status === 404) {
         setIsInvalid(true);
-      }
-      if (res.status === 200) {
+      } else {
         getFlavorTextById(res.pokemon.id).then(
           (textResponse: FlavorTextResponse) => {
             if (res.status === 404) {
               console.log(res);
-            }
-            if (res.status === 200) {
+            } else {
               updateSelection({
                 ...res.pokemon,
                 descriptions: textResponse.text,

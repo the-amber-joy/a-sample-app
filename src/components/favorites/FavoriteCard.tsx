@@ -13,13 +13,11 @@ export const FavoriteCard = ({ name, id, spriteIcon }: Pokemon) => {
     getPokemonById(id).then((res) => {
       if (res.status === 404) {
         console.log(res);
-      }
-      if (res.status === 200) {
+      } else {
         getFlavorTextById(id).then((textResponse) => {
           if (res.status === 404) {
             console.log(res);
-          }
-          if (res.status === 200) {
+          } else {
             updateSelection({
               ...res.pokemon,
               descriptions: textResponse.text,
