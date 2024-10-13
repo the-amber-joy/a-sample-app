@@ -1,3 +1,5 @@
+// This file is used to cache the images of the pokemon sprites
+// https://github.com/PokeAPI/pokeapi-js-wrapper?tab=readme-ov-file#caching-images
 const imgRe =
     /https:\/\/raw\.githubusercontent\.com\/PokeAPI\/sprites\/[\/-\w\d]+\/[\d\w-]+\.(?:png|svg|gif)/,
   version = 1;
