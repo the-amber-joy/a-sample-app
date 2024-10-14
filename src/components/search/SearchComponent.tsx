@@ -27,14 +27,13 @@ export const SearchComponent = () => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    // kebabcase considers number to be separate words
-    // The only pokemon with a number in its name is Porygon 2,
-    // whose slug is 'porygon2' and should not be hyphenated
-    const sanitizedSearchTerm =
-      searchTerm.toLowerCase() === "porygon2" ||
-      searchTerm.toLowerCase() === "porygon 2"
-        ? "porygon2"
-        : kebabCase(searchTerm.toLowerCase());
+    // kebabcase considers numbers to be separate words,
+    // but the PokeAPI considers them to be part of the name (e)
+    // so we need to remove the hyphens surrounding the numeric digits
+    const sanitizedSearchTerm = kebabCase(searchTerm.toLowerCase()).replace(
+      /-(\d+)-?/g,
+      "$1",
+    );
     await getPokemon(sanitizedSearchTerm).then((res: PokemonResponse) => {
       if (res.status === 404) {
         setIsInvalid(true);
