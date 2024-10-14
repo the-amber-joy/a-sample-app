@@ -51,7 +51,7 @@ export const PokemonCard = () => {
     const fetchPokemon = async () => {
       await getPokemon().then(async (res: PokemonResponse) => {
         if (res.status === 404) {
-          console.log(res);
+          throw res;
         } else {
           await fetchDescription(res.pokemon).catch((e) => console.error(e));
         }
@@ -125,7 +125,7 @@ export const PokemonCard = () => {
             <Stack mt="6">
               <Heading size="md">
                 {startCase(selection.name)} #{" "}
-                {padStart(selection.id.toString(), 4, "0")}
+                {padStart(selection.id.toString(), 4, "0")}{" "}
               </Heading>
               <Text fontSize="lg">{description}</Text>
             </Stack>
