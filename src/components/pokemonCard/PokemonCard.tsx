@@ -18,9 +18,9 @@ import {
 
 import { useEffect, useState } from "react";
 import {
-  FlavorTextResponse,
-  getFlavorTextById,
-} from "../../api/getFlavorTextById";
+  DescriptionResponse,
+  getDescriptionById,
+} from "../../api/getDescriptionById";
 import { PokemonResponse, getPokemon } from "../../api/getPokemon";
 import { useSelectionContext } from "../../context/SelectionContext";
 import { Pokemon } from "../../types/Pokemon";
@@ -31,11 +31,11 @@ export const PokemonCard = () => {
   const [isShiny, setIsShiny] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [headingText, setHeadingText] = useState<string>("Loading Pokemon");
-  const [flavorText, setFlavorText] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
 
   useEffect(() => {
-    const fetchFlavorText = async (pokemon: Pokemon) => {
-      await getFlavorTextById(pokemon.id).then((res: FlavorTextResponse) => {
+    const fetchDescription = async (pokemon: Pokemon) => {
+      await getDescriptionById(pokemon.id).then((res: DescriptionResponse) => {
         if (res.status === 404) {
           console.log(res);
         } else {
@@ -53,12 +53,12 @@ export const PokemonCard = () => {
         if (res.status === 404) {
           console.log(res);
         } else {
-          await fetchFlavorText(res.pokemon).catch(console.error);
+          await fetchDescription(res.pokemon).catch((e) => console.error(e));
         }
       });
     };
 
-    fetchPokemon().catch(console.error);
+    fetchPokemon().catch((e) => console.error(e));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -69,7 +69,7 @@ export const PokemonCard = () => {
       if (res.status === 404) {
         console.log(res);
       } else {
-        getFlavorTextById(res.pokemon.id).then((textResponse) => {
+        getDescriptionById(res.pokemon.id).then((textResponse) => {
           if (res.status === 404) {
             console.log(res);
           } else {
@@ -93,8 +93,8 @@ export const PokemonCard = () => {
       if (!selection?.isRandom) {
         setHeadingText("This is your Pokemon");
       }
-      const flavorText = sample(selection.descriptions) || "";
-      setFlavorText(flavorText);
+      const randomDescription = sample(selection.descriptions) || "";
+      setDescription(randomDescription);
     }
   }, [isLoading, selection]);
 
@@ -127,7 +127,7 @@ export const PokemonCard = () => {
                 {startCase(selection.name)} #{" "}
                 {padStart(selection.id.toString(), 4, "0")}
               </Heading>
-              <Text fontSize="lg">{flavorText}</Text>
+              <Text fontSize="lg">{description}</Text>
             </Stack>
           )}
         </CardBody>

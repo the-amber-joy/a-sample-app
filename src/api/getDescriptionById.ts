@@ -1,7 +1,7 @@
 import { map } from "lodash";
 import { P } from "./Pokedex";
 
-export interface FlavorTextResponse {
+export interface DescriptionResponse {
   text: string[];
   status: number;
 }
@@ -9,9 +9,9 @@ export interface FlavorTextResponse {
 /**
  *
  * @param {number | null} id - ID of pokemon
- * @returns {FlavorTextResponse}
+ * @returns {DescriptionResponse}
  */
-export async function getFlavorTextById(id: number) {
+export async function getDescriptionById(id: number) {
   try {
     return await P.getPokemonSpeciesByName(id).then(
       (response: {

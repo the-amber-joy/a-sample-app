@@ -13,9 +13,9 @@ import {
 import { kebabCase } from "lodash";
 import { useState } from "react";
 import {
-  FlavorTextResponse,
-  getFlavorTextById,
-} from "../../api/getFlavorTextById";
+  DescriptionResponse,
+  getDescriptionById,
+} from "../../api/getDescriptionById";
 import { PokemonResponse, getPokemon } from "../../api/getPokemon";
 import { useSelectionContext } from "../../context/SelectionContext";
 
@@ -39,8 +39,8 @@ export const SearchComponent = () => {
       if (res.status === 404) {
         setIsInvalid(true);
       } else {
-        getFlavorTextById(res.pokemon.id).then(
-          (textResponse: FlavorTextResponse) => {
+        getDescriptionById(res.pokemon.id).then(
+          (textResponse: DescriptionResponse) => {
             if (res.status === 404) {
               console.log(res);
             } else {

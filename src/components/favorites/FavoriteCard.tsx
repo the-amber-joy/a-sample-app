@@ -1,10 +1,10 @@
 import { Button, Image } from "@chakra-ui/react";
 
 import { padStart, startCase } from "lodash";
+import { getDescriptionById } from "../../api/getDescriptionById";
+import { getPokemonById } from "../../api/getPokemon";
 import { useSelectionContext } from "../../context/SelectionContext";
 import { Pokemon } from "../../types/Pokemon";
-import { getPokemonById } from "../../api/getPokemon";
-import { getFlavorTextById } from "../../api/getFlavorTextById";
 
 export const FavoriteCard = ({ name, id, spriteIcon }: Pokemon) => {
   const { updateSelection } = useSelectionContext();
@@ -14,7 +14,7 @@ export const FavoriteCard = ({ name, id, spriteIcon }: Pokemon) => {
       if (res.status === 404) {
         console.log(res);
       } else {
-        getFlavorTextById(id).then((textResponse) => {
+        getDescriptionById(id).then((textResponse) => {
           if (res.status === 404) {
             console.log(res);
           } else {
