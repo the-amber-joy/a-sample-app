@@ -35,12 +35,12 @@ export const SearchComponent = () => {
       "$1",
     );
     await getPokemon(sanitizedSearchTerm).then((res: PokemonResponse) => {
-      if (res.status === 404) {
+      if (res.status >= 400) {
         setIsInvalid(true);
       } else {
         getDescriptionById(res.pokemon.id).then(
           (textResponse: DescriptionResponse) => {
-            if (res.status === 404) {
+            if (res.status >= 400) {
               console.log(res);
             } else {
               updateSelection({

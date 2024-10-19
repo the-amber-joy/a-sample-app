@@ -29,7 +29,7 @@ export const PokemonCard = () => {
   useEffect(() => {
     const fetchDescription = async (pokemon: Pokemon) => {
       await getDescriptionById(pokemon.id).then((res: DescriptionResponse) => {
-        if (res.status === 404) {
+        if (res.status >= 400) {
           console.log(res);
         } else {
           updateSelection({
@@ -43,7 +43,7 @@ export const PokemonCard = () => {
 
     const fetchPokemon = async () => {
       await getPokemon().then(async (res: PokemonResponse) => {
-        if (res.status === 404) {
+        if (res.status >= 400) {
           throw res;
         } else {
           await fetchDescription(res.pokemon).catch((e) => console.error(e));
@@ -82,10 +82,9 @@ export const PokemonCard = () => {
       )}
       {!isLoading && (
         <CardContents
-          flavorText={flavorText}
+          description={description}
           isShiny={isShiny}
           selection={selection}
-          setFlavorText={setFlavorText}
         />
       )}
       <Divider />

@@ -10,17 +10,15 @@ import { padStart, startCase } from "lodash";
 import { Pokemon } from "../../../types/Pokemon";
 
 interface Props {
-  flavorText: string;
+  description: string;
   isShiny: boolean;
   selection?: Pokemon | null;
-  setFlavorText: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const CardContents = ({
-  flavorText,
+  description,
   isShiny,
   selection,
-  setFlavorText,
 }: Props) => (
   <CardBody>
     <Center>
@@ -38,7 +36,7 @@ export const CardContents = ({
           {startCase(selection.name)} #{" "}
           {padStart(selection.id.toString(), 4, "0")}
         </Heading>
-        <Text fontSize="lg">{flavorText}</Text>
+        <Text fontSize="lg">{description}</Text>
       </Stack>
     )}
   </CardBody>

@@ -11,11 +11,11 @@ export const FavoriteCard = ({ name, id, spriteIcon }: Pokemon) => {
 
   const handleClick = () => {
     getPokemonById(id).then((res) => {
-      if (res.status === 404) {
+      if (res.status >= 400) {
         console.log(res);
       } else {
         getDescriptionById(id).then((textResponse) => {
-          if (res.status === 404) {
+          if (res.status >= 400) {
             console.log(res);
           } else {
             updateSelection({

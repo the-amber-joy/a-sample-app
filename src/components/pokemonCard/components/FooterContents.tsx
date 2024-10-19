@@ -1,5 +1,5 @@
 import { Button, ButtonGroup, CardFooter } from "@chakra-ui/react";
-import { getFlavorTextById } from "../../../api/getFlavorTextById";
+import { getDescriptionById } from "../../../api/getDescriptionById";
 import { getPokemon } from "../../../api/getPokemon";
 import { Pokemon } from "../../../types/Pokemon";
 import { StarBtn } from "../StarBtn";
@@ -24,15 +24,13 @@ export const FooterContents = ({
   const handleClick = () => {
     setIsLoading(true);
     getPokemon().then((res) => {
-      if (res.status === 404) {
+      if (res.status >= 400) {
         console.log(res);
-      }
-      if (res.status === 200) {
-        getFlavorTextById(res.pokemon.id).then((textResponse) => {
-          if (res.status === 404) {
+      } else {
+        getDescriptionById(res.pokemon.id).then((textResponse) => {
+          if (res.status >= 400) {
             console.log(res);
-          }
-          if (res.status === 200) {
+          } else {
             updateSelection({
               ...res.pokemon,
               descriptions: textResponse.text,
