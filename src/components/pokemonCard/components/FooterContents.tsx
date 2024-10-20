@@ -1,6 +1,5 @@
 import { Button, ButtonGroup, CardFooter } from "@chakra-ui/react";
-import { getDescriptionById } from "../../../api/getDescriptionById";
-import { getPokemon } from "../../../api/getPokemon";
+import fetchPokemon from "../../../functions/handleClick";
 import { Pokemon } from "../../../types/Pokemon";
 import { StarBtn } from "../StarBtn";
 
@@ -21,28 +20,6 @@ export const FooterContents = ({
   setIsShiny,
   updateSelection,
 }: Props) => {
-  const handleClick = () => {
-    setIsLoading(true);
-    getPokemon().then((res) => {
-      if (res.status >= 400) {
-        console.log(res);
-      } else {
-        getDescriptionById(res.pokemon.id).then((textResponse) => {
-          if (res.status >= 400) {
-            console.log(res);
-          } else {
-            updateSelection({
-              ...res.pokemon,
-              descriptions: textResponse.text,
-            });
-          }
-          setIsLoading(false);
-          setIsShiny(false);
-        });
-      }
-    });
-  };
-
   return (
     <CardFooter justify="space-between" alignItems="center">
       <ButtonGroup
@@ -53,7 +30,9 @@ export const FooterContents = ({
           isDisabled={isLoading}
           variant="solid"
           colorScheme="green"
-          onClick={() => handleClick()}
+          onClick={() =>
+            fetchPokemon({ setIsLoading, setIsShiny, updateSelection })
+          }
           size={{ base: "sm", lg: "md" }}
         >
           Pick Another!

@@ -55,6 +55,7 @@ export const PokemonCard = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  
   useEffect(() => {
     if (!isLoading && selection) {
       if (selection?.isRandom) {
