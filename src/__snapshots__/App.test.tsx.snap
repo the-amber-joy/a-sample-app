@@ -155,7 +155,7 @@ exports[`renders correctly 1`] = `
               className="chakra-button css-f3ugdt"
               disabled={true}
               onClick={[Function]}
-              selection={{}}
+              selection={null}
               type="button"
             >
               <svg
