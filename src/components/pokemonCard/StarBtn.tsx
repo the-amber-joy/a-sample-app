@@ -1,9 +1,8 @@
 import { StarIcon } from "@chakra-ui/icons";
 import { Button, ButtonProps } from "@chakra-ui/react";
-import { filter } from "lodash";
-import { useFavoritesContext } from "../../context/FavoritesContext";
-import { isFavorite } from "./isFavorite";
+import { useFavorites } from "../../store";
 import { Pokemon } from "../../types/Pokemon";
+import { isFavorite } from "./isFavorite";
 
 interface StarBtnProps extends ButtonProps {
   selection: Pokemon | null;
@@ -11,8 +10,9 @@ interface StarBtnProps extends ButtonProps {
 
 export const StarBtn = (props: StarBtnProps) => {
   const { selection } = props;
-  const { favorites, updateFavorites } = useFavoritesContext();
-  const isFave = selection && isFavorite(favorites, selection.id);
+  const { favorites, updateFavorites } = useFavorites();
+  const isFave = selection ? isFavorite(favorites, selection.id) : false;
+
   return (
     <Button
       aria-label="Save this Pokemon as a Favorite"
@@ -20,15 +20,7 @@ export const StarBtn = (props: StarBtnProps) => {
       colorScheme="yellow"
       onClick={() => {
         if (selection) {
-          if (isFave) {
-            const newList = filter(
-              favorites,
-              (fave) => fave.id !== selection.id
-            );
-            updateFavorites(newList);
-          } else {
-            updateFavorites([...favorites, selection]);
-          }
+          updateFavorites(selection, isFave);
         }
       }}
       {...props}

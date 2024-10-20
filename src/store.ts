@@ -1,20 +1,32 @@
-// import { create } from "zustand";
-// import { Pokemon } from "./types/Pokemon";
+import { filter } from "lodash";
+import { create } from "zustand";
+import { Pokemon } from "./types/Pokemon";
 
-// function getFavorites() {
-//   if (localStorage.getItem("favorites")) {
-//     const storedFavorites = localStorage.getItem("favorites") as string;
-//     return JSON.parse(storedFavorites) as Pokemon[];
-//   }
+function getFavorites() {
+  if (localStorage.getItem("favorites")) {
+    const storedFavorites = localStorage.getItem("favorites") as string;
+    return JSON.parse(storedFavorites) as Pokemon[];
+  }
 
-//   return [] as Pokemon[];
-// }
+  return [] as Pokemon[];
+}
 
-// export const useStore = create((set) => ({
-//   favorites: getFavorites(),
-//   updateFavorites: () => set((state: { bears: number; }) => ({ bears: state.bears + 1 })),
-//   removeAllBears: () => set({ bears: 0 }),
-//   updateBears: (newBears: any) => set({ bears: newBears }),
-// }));
+interface FavoritesState {
+  favorites: Pokemon[];
+  updateFavorites: (selection: Pokemon, isFave: boolean) => void;
+}
 
-export {};
+export const useFavorites = create<FavoritesState>((set) => ({
+  favorites: getFavorites(),
+  updateFavorites: (selection: Pokemon, isFave: boolean) => {
+    if (isFave) {
+      const newList = filter(
+        getFavorites(),
+        (fave) => fave.id !== selection.id,
+      );
+      set((state) => ({ favorites: newList }));
+    } else {
+      set((state) => ({ favorites: [...state.favorites, selection] }));
+    }
+  },
+}));
