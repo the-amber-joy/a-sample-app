@@ -1,6 +1,6 @@
 import { filter } from "lodash";
 import { create } from "zustand";
-import { Pokemon } from "./types/Pokemon";
+import { Pokemon } from "../types/Pokemon";
 
 function getFavorites() {
   if (localStorage.getItem("favorites")) {
@@ -16,7 +16,7 @@ interface FavoritesState {
   updateFavorites: (selection: Pokemon, isFave: boolean) => void;
 }
 
-export const useFavorites = create<FavoritesState>((set) => ({
+export const useFavoritesStore = create<FavoritesState>((set) => ({
   favorites: getFavorites(),
   updateFavorites: (selection: Pokemon, isFave: boolean) => {
     if (isFave) {

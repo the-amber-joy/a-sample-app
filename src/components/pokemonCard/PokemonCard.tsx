@@ -14,13 +14,13 @@ import {
   getDescriptionById,
 } from "../../api/getDescriptionById";
 import { PokemonResponse, getPokemon } from "../../api/getPokemon";
-import { useSelectionContext } from "../../context/SelectionContext";
+import { useSelectionStore } from "../../stores/selectionStore";
 import { Pokemon } from "../../types/Pokemon";
 import { CardContents } from "./components/CardContents";
 import { FooterContents } from "./components/FooterContents";
 
 export const PokemonCard = () => {
-  const { selection, updateSelection } = useSelectionContext();
+  const { selection, updateSelection } = useSelectionStore();
   const [isShiny, setIsShiny] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [headingText, setHeadingText] = useState<string>("Loading Pokemon");
@@ -55,7 +55,7 @@ export const PokemonCard = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
   useEffect(() => {
     if (!isLoading && selection) {
       if (selection?.isRandom) {

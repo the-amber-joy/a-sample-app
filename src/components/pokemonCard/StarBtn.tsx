@@ -1,6 +1,6 @@
 import { StarIcon } from "@chakra-ui/icons";
 import { Button, ButtonProps } from "@chakra-ui/react";
-import { useFavorites } from "../../store";
+import { useFavoritesStore } from "../../stores/favoritesStore";
 import { Pokemon } from "../../types/Pokemon";
 import { isFavorite } from "./isFavorite";
 
@@ -10,7 +10,7 @@ interface StarBtnProps extends ButtonProps {
 
 export const StarBtn = (props: StarBtnProps) => {
   const { selection } = props;
-  const { favorites, updateFavorites } = useFavorites();
+  const { favorites, updateFavorites } = useFavoritesStore();
   const isFave = selection ? isFavorite(favorites, selection.id) : false;
 
   return (

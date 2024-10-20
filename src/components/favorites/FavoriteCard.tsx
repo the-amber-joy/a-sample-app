@@ -1,12 +1,12 @@
 import { Button, Image } from "@chakra-ui/react";
 
 import { padStart, startCase } from "lodash";
-import { useSelectionContext } from "../../context/SelectionContext";
 import fetchPokemon from "../../functions/handleClick";
+import { useSelectionStore } from "../../stores/selectionStore";
 import { Pokemon } from "../../types/Pokemon";
 
 export const FavoriteCard = ({ name, id, spriteIcon }: Pokemon) => {
-  const { updateSelection } = useSelectionContext();
+  const { updateSelection } = useSelectionStore();
 
   return (
     <Button

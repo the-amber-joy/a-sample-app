@@ -1,10 +1,10 @@
 import { Heading, Stack, VStack } from "@chakra-ui/react";
 import { map } from "lodash";
-import { useFavorites } from "../../store";
+import { useFavoritesStore } from "../../stores/favoritesStore";
 import { FavoriteCard } from "./FavoriteCard";
 
 export const Favorites = () => {
-  const { favorites } = useFavorites();
+  const { favorites } = useFavoritesStore();
 
   return (
     <VStack w={"auto"} minW={"sm"}>
