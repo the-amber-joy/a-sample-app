@@ -17,10 +17,10 @@ import {
   getDescriptionById,
 } from "../../api/getDescriptionById";
 import { PokemonResponse, getPokemon } from "../../api/getPokemon";
-import { useSelectionContext } from "../../context/SelectionContext";
+import { useSelectionStore } from "../../stores/selectionStore";
 
 export const SearchComponent = () => {
-  const { updateSelection } = useSelectionContext();
+  const { updateSelection } = useSelectionStore();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [isInvalid, setIsInvalid] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -35,12 +35,12 @@ export const SearchComponent = () => {
       "$1",
     );
     await getPokemon(sanitizedSearchTerm).then((res: PokemonResponse) => {
-      if (res.status === 404) {
+      if (res.status >= 400) {
         setIsInvalid(true);
       } else {
         getDescriptionById(res.pokemon.id).then(
           (textResponse: DescriptionResponse) => {
-            if (res.status === 404) {
+            if (res.status >= 400) {
               console.log(res);
             } else {
               updateSelection({

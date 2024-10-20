@@ -1,33 +1,26 @@
-import { padStart, sample, startCase } from "lodash";
-
 import {
-  Button,
-  ButtonGroup,
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
   Center,
   Divider,
   Heading,
-  Image,
   Spinner,
-  Stack,
-  Text,
 } from "@chakra-ui/react";
-
+import { sample } from "lodash";
 import { useEffect, useState } from "react";
 import {
   DescriptionResponse,
   getDescriptionById,
 } from "../../api/getDescriptionById";
 import { PokemonResponse, getPokemon } from "../../api/getPokemon";
-import { useSelectionContext } from "../../context/SelectionContext";
+import { useSelectionStore } from "../../stores/selectionStore";
 import { Pokemon } from "../../types/Pokemon";
-import { StarBtn } from "./StarBtn";
+import { CardContents } from "./components/CardContents";
+import { FooterContents } from "./components/FooterContents";
 
 export const PokemonCard = () => {
-  const { selection, updateSelection } = useSelectionContext();
+  const { selection, updateSelection } = useSelectionStore();
   const [isShiny, setIsShiny] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [headingText, setHeadingText] = useState<string>("Loading Pokemon");
@@ -36,7 +29,7 @@ export const PokemonCard = () => {
   useEffect(() => {
     const fetchDescription = async (pokemon: Pokemon) => {
       await getDescriptionById(pokemon.id).then((res: DescriptionResponse) => {
-        if (res.status === 404) {
+        if (res.status >= 400) {
           console.log(res);
         } else {
           updateSelection({
@@ -50,7 +43,7 @@ export const PokemonCard = () => {
 
     const fetchPokemon = async () => {
       await getPokemon().then(async (res: PokemonResponse) => {
-        if (res.status === 404) {
+        if (res.status >= 400) {
           throw res;
         } else {
           await fetchDescription(res.pokemon).catch((e) => console.error(e));
@@ -62,28 +55,6 @@ export const PokemonCard = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handleClick = () => {
-    setIsLoading(true);
-    getPokemon().then((res) => {
-      if (res.status === 404) {
-        console.log(res);
-      } else {
-        getDescriptionById(res.pokemon.id).then((textResponse) => {
-          if (res.status === 404) {
-            console.log(res);
-          } else {
-            updateSelection({
-              ...res.pokemon,
-              descriptions: textResponse.text,
-            });
-          }
-          setIsLoading(false);
-          setIsShiny(false);
-        });
-      }
-    });
-  };
 
   useEffect(() => {
     if (!isLoading && selection) {
@@ -111,60 +82,21 @@ export const PokemonCard = () => {
         </CardBody>
       )}
       {!isLoading && (
-        <CardBody>
-          <Center>
-            <Image
-              maxH="200px"
-              maxW="200px"
-              src={isShiny ? selection?.shinySprite : selection?.defaultSprite}
-              alt={selection?.name}
-              borderRadius="sm"
-            />
-          </Center>
-          {selection && (
-            <Stack mt="6">
-              <Heading size="md">
-                {startCase(selection.name)} #{" "}
-                {padStart(selection.id.toString(), 4, "0")}{" "}
-              </Heading>
-              <Text fontSize="lg">{description}</Text>
-            </Stack>
-          )}
-        </CardBody>
-      )}
-      <Divider />
-      <CardFooter justify="space-between" alignItems="center">
-        <ButtonGroup
-          spacing={{ base: "0", sm: "1" }}
-          flexDirection={{ base: "column", sm: "row" }}
-        >
-          <Button
-            isDisabled={isLoading}
-            variant="solid"
-            colorScheme="green"
-            onClick={() => handleClick()}
-            size={{ base: "sm", lg: "md" }}
-          >
-            Pick Another!
-          </Button>
-          <Button
-            isDisabled={isLoading}
-            variant="outline"
-            colorScheme={isShiny ? "purple" : "cyan"}
-            onClick={() => {
-              setIsShiny(!isShiny);
-            }}
-            size={{ base: "sm", lg: "md" }}
-          >
-            {isShiny ? "Make it Default" : "Make it Shiny!"}
-          </Button>
-        </ButtonGroup>
-        <StarBtn
-          size={{ base: "sm", lg: "md" }}
-          isDisabled={isLoading}
+        <CardContents
+          description={description}
+          isShiny={isShiny}
           selection={selection}
         />
-      </CardFooter>
+      )}
+      <Divider />
+      <FooterContents
+        isLoading={isLoading}
+        isShiny={isShiny}
+        selection={selection}
+        setIsLoading={setIsLoading}
+        setIsShiny={setIsShiny}
+        updateSelection={updateSelection}
+      />
     </Card>
   );
 };
