@@ -17,7 +17,7 @@ export const FavoriteCard = ({ name, id, spriteIcon }: Pokemon) => {
       }}
       overflow="hidden"
     >
-      <Image src={spriteIcon} marginLeft="-6" marginRight="0" />
+      <Image src={spriteIcon} marginLeft="-6" marginRight="0" alt={name} />
       {startCase(name)} # {padStart(id.toString(), 4, "0")}
     </Button>
   );
