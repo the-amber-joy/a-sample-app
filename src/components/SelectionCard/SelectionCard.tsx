@@ -1,20 +1,10 @@
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Center,
-  Divider,
-  Heading,
-  Spinner,
-} from "@chakra-ui/react";
 import { sample } from "lodash";
 import { useEffect, useState } from "react";
 import fetchPokemon from "../../functions/fetchPokemon";
 import { useSelectionStore } from "../../stores/selectionStore";
-import { CardContents } from "./components/CardContents";
-import { FooterContents } from "./components/FooterContents";
+import { PokemonCard } from "./components/PokemonCard";
 
-export const PokemonCard = () => {
+export const SelectionCard = () => {
   const { selection, updateSelection } = useSelectionStore();
   const [isShiny, setIsShiny] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -42,33 +32,15 @@ export const PokemonCard = () => {
   }, [isLoading, selection]);
 
   return (
-    <Card w={{ base: "auto", lg: "md" }} minHeight="xl">
-      <CardHeader>
-        <Heading size="md">{headingText}</Heading>
-      </CardHeader>
-      {isLoading && (
-        <CardBody>
-          <Center>
-            <Spinner size="xl" />
-          </Center>
-        </CardBody>
-      )}
-      {!isLoading && (
-        <CardContents
-          description={description}
-          isShiny={isShiny}
-          selection={selection}
-        />
-      )}
-      <Divider />
-      <FooterContents
-        isLoading={isLoading}
-        isShiny={isShiny}
-        selection={selection}
-        setIsLoading={setIsLoading}
-        setIsShiny={setIsShiny}
-        updateSelection={updateSelection}
-      />
-    </Card>
+    <PokemonCard
+      headingText={headingText}
+      description={description}
+      isLoading={isLoading}
+      isShiny={isShiny}
+      selection={selection}
+      setIsLoading={setIsLoading}
+      setIsShiny={setIsShiny}
+      updateSelection={updateSelection}
+    />
   );
 };

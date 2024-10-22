@@ -1,7 +1,7 @@
 import { Button, ButtonGroup, CardFooter } from "@chakra-ui/react";
 import fetchPokemon from "../../../functions/fetchPokemon";
 import { Pokemon } from "../../../types/Pokemon";
-import { StarBtn } from "../StarBtn";
+import { StarBtn } from "./StarBtn";
 
 interface Props {
   isLoading: boolean;

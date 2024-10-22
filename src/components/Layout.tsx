@@ -1,8 +1,8 @@
 import { Box, Flex, Stack } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
-import { Favorites } from "../favorites/Favorites";
-import { PokemonCard } from "../pokemonCard/PokemonCard";
-import { SearchComponent } from "../search/SearchComponent";
+import { Favorites } from "./Favorites/Favorites";
+import { SearchComponent } from "./Search/SearchComponent";
+import { SelectionCard } from "./SelectionCard/SelectionCard";
 
 export const Layout = () => (
   <Box textAlign="center" fontSize="xl" minHeight="100vh" maxWidth="1280px">
@@ -14,7 +14,7 @@ export const Layout = () => (
         spacing={3}
       >
         <SearchComponent />
-        <PokemonCard />
+        <SelectionCard />
         <Favorites />
       </Stack>
     </Flex>

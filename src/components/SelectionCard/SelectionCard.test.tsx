@@ -1,10 +1,10 @@
-import { screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { screen } from "@testing-library/react";
 import { render } from "../../test-utils";
-import { PokemonCard } from "./PokemonCard";
+import { SelectionCard } from "./SelectionCard";
 
 it("renders Loading Pokemon text", () => {
-  render(<PokemonCard />);
+  render(<SelectionCard />);
   const el = screen.getByText("Loading Pokemon");
   expect(el).toBeInTheDocument();
 });

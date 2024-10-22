@@ -1,5 +1,5 @@
 import { ChakraProvider, theme } from "@chakra-ui/react";
-import { Layout } from "./components/layout/Layout";
+import { Layout } from "./components/Layout";
 
 export const App = () => {
   return (
