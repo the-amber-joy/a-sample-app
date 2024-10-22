@@ -9,13 +9,8 @@ import {
 } from "@chakra-ui/react";
 import { sample } from "lodash";
 import { useEffect, useState } from "react";
-import {
-  DescriptionResponse,
-  getDescriptionById,
-} from "../../api/getDescriptionById";
-import { PokemonResponse, getPokemon } from "../../api/getPokemon";
+import fetchPokemon from "../../functions/fetchPokemon";
 import { useSelectionStore } from "../../stores/selectionStore";
-import { Pokemon } from "../../types/Pokemon";
 import { CardContents } from "./components/CardContents";
 import { FooterContents } from "./components/FooterContents";
 
@@ -27,34 +22,11 @@ export const PokemonCard = () => {
   const [description, setDescription] = useState<string>("");
 
   useEffect(() => {
-    const fetchDescription = async (pokemon: Pokemon) => {
-      await getDescriptionById(pokemon.id).then((res: DescriptionResponse) => {
-        if (res.status >= 400) {
-          console.log(res);
-        } else {
-          updateSelection({
-            ...pokemon,
-            descriptions: res.text,
-          });
-          setIsLoading(false);
-        }
-      });
-    };
-
-    const fetchPokemon = async () => {
-      await getPokemon().then(async (res: PokemonResponse) => {
-        if (res.status >= 400) {
-          throw res;
-        } else {
-          await fetchDescription(res.pokemon).catch((e) => console.error(e));
-        }
-      });
-    };
-
-    fetchPokemon().catch((e) => console.error(e));
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    fetchPokemon({
+      setIsLoading,
+      updateSelection,
+    });
+  }, [updateSelection]);
 
   useEffect(() => {
     if (!isLoading && selection) {

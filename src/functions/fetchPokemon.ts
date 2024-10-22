@@ -28,8 +28,10 @@ export default function fetchPokemon({
             descriptions: textResponse.text,
           });
         }
-        if (setIsLoading && setIsShiny) {
+        if (setIsLoading) {
           setIsLoading(false);
+        }
+        if (setIsShiny) {
           setIsShiny(false);
         }
       });

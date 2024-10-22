@@ -1,7 +1,7 @@
 import { Button, Image } from "@chakra-ui/react";
 
 import { padStart, startCase } from "lodash";
-import fetchPokemon from "../../functions/handleClick";
+import fetchPokemon from "../../functions/fetchPokemon";
 import { useSelectionStore } from "../../stores/selectionStore";
 import { Pokemon } from "../../types/Pokemon";
 

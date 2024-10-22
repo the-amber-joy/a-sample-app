@@ -1,5 +1,5 @@
 import { Button, ButtonGroup, CardFooter } from "@chakra-ui/react";
-import fetchPokemon from "../../../functions/handleClick";
+import fetchPokemon from "../../../functions/fetchPokemon";
 import { Pokemon } from "../../../types/Pokemon";
 import { StarBtn } from "../StarBtn";
 
