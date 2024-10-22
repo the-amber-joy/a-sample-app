@@ -2,7 +2,7 @@
 
 exports[`renders correctly 1`] = `
 [
-  <div
+  <main
     className="css-2haa85"
   >
     <div
@@ -64,14 +64,14 @@ exports[`renders correctly 1`] = `
                   onBlur={[Function]}
                   onChange={[Function]}
                   onFocus={[Function]}
-                  placeholder="Search by name"
+                  placeholder="Search by name or ID #"
                   readOnly={false}
                   required={false}
                   value=""
                 />
               </div>
               <button
-                aria-label="Search by name"
+                aria-label="Submit search"
                 className="chakra-button css-22xpxh"
                 disabled={true}
                 onClick={[Function]}
@@ -185,7 +185,7 @@ exports[`renders correctly 1`] = `
         </div>
       </div>
     </div>
-  </div>,
+  </main>,
   <span />,
   <span
     hidden={true}

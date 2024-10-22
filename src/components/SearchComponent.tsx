@@ -64,7 +64,7 @@ export const SearchComponent = () => {
         <HStack w={{ base: "auto", lg: "sm" }}>
           <InputGroup>
             <Input
-              placeholder="Search by name"
+              placeholder="Search by name or ID #"
               onChange={(e) => {
                 setIsInvalid(false);
                 setSearchTerm(e.currentTarget.value);
@@ -87,7 +87,7 @@ export const SearchComponent = () => {
           <IconButton
             type="submit"
             isDisabled={isLoading || searchTerm === ""}
-            aria-label="Search by name"
+            aria-label="Submit search"
             icon={isLoading ? <Spinner size="sm" /> : <SearchIcon />}
             onClick={() => {
               handleSubmit();

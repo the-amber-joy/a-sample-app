@@ -5,7 +5,7 @@ import { SearchComponent } from "./SearchComponent";
 import { SelectionCard } from "./SelectionCard/SelectionCard";
 
 export const Layout = () => (
-  <Box textAlign="center" fontSize="xl" minHeight="100vh" maxWidth="1280px">
+  <Box as="main" textAlign="center" fontSize="xl" minHeight="100vh" maxWidth="1280px">
     <ColorModeSwitcher />
     <Flex p={4} w="100%" direction={{ base: "column", lg: "row" }}>
       <Stack
