@@ -25,8 +25,13 @@ export const useFavoritesStore = create<FavoritesState>((set) => ({
         (fave) => fave.id !== selection.id,
       );
       set((state) => ({ favorites: newList }));
+      localStorage.setItem("favorites", JSON.stringify(newList));
     } else {
       set((state) => ({ favorites: [...state.favorites, selection] }));
+      localStorage.setItem(
+        "favorites",
+        JSON.stringify([...getFavorites(), selection]),
+      );
     }
   },
 }));
