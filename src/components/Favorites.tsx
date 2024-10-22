@@ -1,6 +1,6 @@
 import { Heading, Stack, VStack } from "@chakra-ui/react";
 import { map } from "lodash";
-import { useFavoritesStore } from "../../stores/favoritesStore";
+import { useFavoritesStore } from "../stores/favoritesStore";
 import { FavoriteCard } from "./FavoriteCard";
 
 export const Favorites = () => {

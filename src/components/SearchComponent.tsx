@@ -12,12 +12,9 @@ import {
 } from "@chakra-ui/react";
 import { kebabCase } from "lodash";
 import { useState } from "react";
-import {
-  DescriptionResponse,
-  getDescriptionById,
-} from "../../api/getDescriptionById";
-import { PokemonResponse, getPokemon } from "../../api/getPokemon";
-import { useSelectionStore } from "../../stores/selectionStore";
+import { getDescriptionById, DescriptionResponse } from "../api/getDescriptionById";
+import { getPokemon, PokemonResponse } from "../api/getPokemon";
+import { useSelectionStore } from "../stores/selectionStore";
 
 export const SearchComponent = () => {
   const { updateSelection } = useSelectionStore();

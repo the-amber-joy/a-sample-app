@@ -1,7 +1,7 @@
 import { Box, Flex, Stack } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
-import { Favorites } from "./Favorites/Favorites";
-import { SearchComponent } from "./Search/SearchComponent";
+import { Favorites } from "./Favorites";
+import { SearchComponent } from "./SearchComponent";
 import { SelectionCard } from "./SelectionCard/SelectionCard";
 
 export const Layout = () => (
